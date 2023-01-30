@@ -12,7 +12,9 @@
 		<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-fabb6b46.js">
 		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.js-9cbb603b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-da46b06b.js">
-		<link rel="modulepreload" href="./_app/immutable/components/pages/_page.svelte-84f4b100.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/blog/_page.svelte-cec99564.js">
+		<link rel="modulepreload" href="./_app/immutable/modules/pages/blog/_page.js-8f5a55c7.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/_page-a5e8a8ff.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -28,35 +30,37 @@
       <li><a href="/about" class="svelte-1sesc11">About</a></li></ul></nav>
 </header>
 
-<main><h1>woojung3&#39;s personal page</h1>
-
-<p>This page is mainly for updating my presentations for now.
-</p>
+<main>
 
 
-<ul><li><a href="https://woojung3.github.io/new_leader_guide/">AutoCrypt V2X.platform 그룹 리더 가이드</a></li><li><a href="/html/2023-01-28_rust/index.html">Comprehensive Rust (reveal.js 학습용)</a></li></ul></main>
+<h1>Blog</h1>
+
+<ul><li><h2><a href="/blog/1">깃허브 페이지 개설
+        </a></h2>
+      Published 2023-01-30
+    </li></ul></main>
 
 
 <footer class="svelte-twq202">© woojung3
 </footer>
 
 
-		<script type="module" data-sveltekit-hydrate="jnfkv8">
+		<script type="module" data-sveltekit-hydrate="1lt72xh">
 			import { start } from "./_app/immutable/start-7cf24d06.js";
 
 			start({
 				env: {},
 				paths: {"assets":"","base":""},
-				target: document.querySelector('[data-sveltekit-hydrate="jnfkv8"]').parentNode,
+				target: document.querySelector('[data-sveltekit-hydrate="1lt72xh"]').parentNode,
 				version: "1675056501023",
 				hydrate: {
-					node_ids: [0, 2],
+					node_ids: [0, 4],
 					data: [null,null],
 					form: null,
 					error: null
 				}
 			});
 		</script>
-	</div>
+	<script type="application/json" data-sveltekit-fetched data-url="/api/posts">{"status":200,"statusText":"","headers":{},"body":"[{\"meta\":{\"title\":\"깃허브 페이지 개설\",\"date\":\"2023-01-30\"},\"path\":\"/blog/1\"}]"}</script></div>
 	</body>
 </html>
