@@ -12,3 +12,9 @@ import '$lib/styles/style.scss'
 </main>
 
 <Footer />
+
+<style>
+    :global(body){
+        background: #EEEEEE;
+    }
+</style>
