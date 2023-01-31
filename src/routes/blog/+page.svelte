@@ -9,7 +9,7 @@
   console.log(items)
 
   let currentPage = 1
-  let pageSize = 4
+  let pageSize = 10
   $: paginatedItems = paginate({ items, pageSize, currentPage })
 </script>
 
