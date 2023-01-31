@@ -1,4 +1,6 @@
 <script>
+	import { Button } from 'sveltestrap';
+
 	let presentationList = [
 		{
 			url: "https://woojung3.github.io/new_leader_guide/",
@@ -11,12 +13,7 @@
 	];
 </script>
 
-<h1>woojung3's personal page</h1>
-
-<p>
-	This page is mainly for updating my presentations for now.
-</p>
-
+# Presentations
 
 <ul>
 {#each presentationList as presentation }

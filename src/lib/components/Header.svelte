@@ -1,37 +1,40 @@
 <!-- Header.svelte -->
-<header>
-  <a href="/">Home</a>
+<script>
+  import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+  } from 'sveltestrap';
 
-  <nav>
-    <ul>
-      <li>
-        <a href="/blog">Blog</a>
-      </li>
-      <li>
-        <a href="/about">About</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+  let isOpen = false;
 
-<style>
-header {
-  padding: 1rem;
-  background: lightskyblue;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
+  function handleUpdate(event) {
+    isOpen = event.detail.isOpen;
+  }
+</script>
 
-ul {
-  margin: 0;
-  list-style-type: none;
-  display: flex;
-  gap: 1rem;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-</style>
+<Navbar color="light" light expand="md">
+  <NavbarBrand href="/">Home</NavbarBrand>
+    <Nav class="ml-auto" navbar>
+      <NavItem>
+        <NavLink href="/presentations">Presentations</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/papers">Papers</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/blog">Blog</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/about">About</NavLink>
+      </NavItem>
+    </Nav>
+</Navbar>
