@@ -19,6 +19,7 @@
       </h4>
       Published {item.meta.date}
     </li>
+    <hr>
   {/each}
 </ul>
 
