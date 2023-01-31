@@ -13,9 +13,3 @@ import '$lib/styles/prism-vsc-dark-plus.css'
 </main>
 
 <Footer />
-
-<style>
-    :global(body){
-        background: #EEEEEE !important;
-    }
-</style>
