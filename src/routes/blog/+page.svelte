@@ -1,19 +1,33 @@
 <!-- src/routes/blog/+page.svelte -->
 <script>
-export let data
+  import { paginate, LightPaginationNav } from 'svelte-paginate'
+  export let data
+
+  let items = data.posts
+
+  let currentPage = 1
+  let pageSize = 4
+  $: paginatedItems = paginate({ items, pageSize, currentPage })
 </script>
 
-<h1>Blog</h1>
-
-<ul>
-  {#each data.posts as post}
-    <li>
-      <h2>
-        <a href={post.path}>
-          {post.meta.title}
+<ul class="items">
+  {#each paginatedItems as item}
+    <li class="item">
+      <h4>
+        <a href={item.path}>
+          {item.title}
         </a>
-      </h2>
-      Published {post.meta.date}
+      </h4>
+      Published {item.date}
     </li>
   {/each}
 </ul>
+
+<LightPaginationNav
+  totalItems="{items.length}"
+  pageSize="{pageSize}"
+  currentPage="{currentPage}"
+  limit="{1}"
+  showStepOptions="{true}"
+  on:setPage="{(e) => currentPage = e.detail.page}"
+/>

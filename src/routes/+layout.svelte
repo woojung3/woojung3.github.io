@@ -15,6 +15,6 @@ import '$lib/styles/style.scss'
 
 <style>
     :global(body){
-        background: #EEEEEE;
+        background: #EEEEEE !important;
     }
 </style>
