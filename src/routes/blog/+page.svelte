@@ -2,11 +2,7 @@
 <script>
   import { paginate, LightPaginationNav } from 'svelte-paginate'
   export let data
-  console.log(data)
-
   let items = data.posts
-
-  console.log(items)
 
   let currentPage = 1
   let pageSize = 10
