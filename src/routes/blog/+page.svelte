@@ -2,8 +2,11 @@
 <script>
   import { paginate, LightPaginationNav } from 'svelte-paginate'
   export let data
+  console.log(data)
 
   let items = data.posts
+
+  console.log(items)
 
   let currentPage = 1
   let pageSize = 4
@@ -15,10 +18,10 @@
     <li class="item">
       <h4>
         <a href={item.path}>
-          {item.title}
+          {item.meta.title}
         </a>
       </h4>
-      Published {item.date}
+      Published {item.meta.date}
     </li>
   {/each}
 </ul>

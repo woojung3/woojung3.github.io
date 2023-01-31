@@ -8,8 +8,7 @@ export const fetchMarkdownPosts = async () => {
 		const postPath = path.slice(11, -9)
 
 		return {
-		  title: metadata.title,
-		  date: metadata.date,
+		  meta: metadata,
 		  path: postPath,
 		}
 	  })
