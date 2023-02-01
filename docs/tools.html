@@ -15,10 +15,8 @@
 		<link rel="modulepreload" href="./_app/immutable/components/pages/_layout.svelte-a4d52722.js">
 		<link rel="modulepreload" href="./_app/immutable/modules/pages/_layout.js-bc90e16e.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/_layout-2f807c69.js">
-		<link rel="modulepreload" href="./_app/immutable/components/pages/blog/_page.svelte-b56b3027.js">
+		<link rel="modulepreload" href="./_app/immutable/components/pages/tools/_page.md-2264e5dc.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DarkPaginationNav.svelte_svelte_type_style_lang-9c91ebd8.js">
-		<link rel="modulepreload" href="./_app/immutable/modules/pages/blog/_page.js-8f5a55c7.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/_page-a5e8a8ff.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -36,37 +34,64 @@
       <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
       <li class="nav-item"><a href="/about" class="nav-link">About</a></li></ul></div></nav>
 
-<main>
-
-
-<ul class="items"><li class="item"><h4><a href="/blog/5">블로그 이전
-        </a></h4>
-      Published 2023-01-31</li>
-    <hr><li class="item"><h4><a href="/blog/1">깃허브 페이지 개설
-        </a></h4>
-      Published 2023-01-30</li>
-    <hr><li class="item"><h4><a href="/blog/4">명지대학교 가을
-        </a></h4>
-      Published 2019-10-25</li>
-    <hr><li class="item"><h4><a href="/blog/3">명지대학교 봄
-        </a></h4>
-      Published 2019-04-18</li>
-    <hr><li class="item"><h4><a href="/blog/2">정보보안연구실 정리
-        </a></h4>
-      Published 2017-02-07</li>
-    <hr></ul>
-
+<main><h1>점심 선택기</h1>
+<h2>전체 식당 목록</h2>
+<ul class="items"><li class="item">모던식당: 신한드림리버 지하1층 쌀밥 맛집 </li><li class="item">창고43: 소고기 맛집. 비쌈 </li><li class="item">서평옥: 이북식 탕반집. 순복음교회 버스정류장 </li><li class="item">복음식당: 저렴한 한식집 </li><li class="item">리153: 만원 중식 뷔페 </li></ul>
 <div class="light-pagination-nav svelte-s5ru8s"><div class="pagination-nav"><span class="option  prev  disabled" role="presentation">
           <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
         
     </span><span class="option number     active" role="presentation">
           <span>1</span>
         
-    </span><span class="option   next disabled" role="presentation">
+    </span><span class="option number" role="presentation">
+          <span>2</span>
+        
+    </span><span class="option number" role="presentation">
+          <span>3</span>
+        
+    </span><span class="option number" role="presentation">
+          <span>4</span>
+        
+    </span><span class="option number" role="presentation">
+          <span>5</span>
+        
+    </span><span class="option     ellipsis" role="presentation">
+          <span>...</span>
+        
+    </span><span class="option number" role="presentation">
+          <span>8</span>
+        
+    </span><span class="option   next" role="presentation">
           <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#000000" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
         
     </span></div>
-</div></main>
+</div>
+<br>
+<h2>옵션</h2>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+  <label class="form-check-label" for="flexCheckDefault">한식
+  </label></div>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+  <label class="form-check-label" for="flexCheckChecked">중식
+  </label></div>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+  <label class="form-check-label" for="flexCheckChecked">일식
+  </label></div>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+  <label class="form-check-label" for="flexCheckChecked">양식
+  </label></div>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+  <label class="form-check-label" for="flexCheckChecked">치킨
+  </label></div>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+  <label class="form-check-label" for="flexCheckChecked">분식
+  </label></div>
+<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+  <label class="form-check-label" for="flexCheckChecked">기타
+  </label></div>
+<br>
+<button>운명의 시간!</button>
+</main>
 
 
 
@@ -76,22 +101,22 @@
         </a></li></ul></div></nav>
 
 
-		<script type="module" data-sveltekit-hydrate="9xydxw">
+		<script type="module" data-sveltekit-hydrate="6u9cax">
 			import { start } from "./_app/immutable/start-9c858afc.js";
 
 			start({
 				env: {},
 				paths: {"assets":"","base":""},
-				target: document.querySelector('[data-sveltekit-hydrate="9xydxw"]').parentNode,
+				target: document.querySelector('[data-sveltekit-hydrate="6u9cax"]').parentNode,
 				version: "1675242423896",
 				hydrate: {
-					node_ids: [0, 4],
+					node_ids: [0, 12],
 					data: [null,null],
 					form: null,
 					error: null
 				}
 			});
 		</script>
-	<script type="application/json" data-sveltekit-fetched data-url="/api/posts">{"status":200,"statusText":"","headers":{},"body":"[{\"meta\":{\"title\":\"블로그 이전\",\"date\":\"2023-01-31\"},\"path\":\"/blog/5\"},{\"meta\":{\"title\":\"깃허브 페이지 개설\",\"date\":\"2023-01-30\"},\"path\":\"/blog/1\"},{\"meta\":{\"title\":\"명지대학교 가을\",\"date\":\"2019-10-25\"},\"path\":\"/blog/4\"},{\"meta\":{\"title\":\"명지대학교 봄\",\"date\":\"2019-04-18\"},\"path\":\"/blog/3\"},{\"meta\":{\"title\":\"정보보안연구실 정리\",\"date\":\"2017-02-07\"},\"path\":\"/blog/2\"}]"}</script></div>
+	</div>
 	</body>
 </html>
