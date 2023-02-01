@@ -19,7 +19,7 @@
 		}
 		else
 		{
-			item = items[Math.floor(Math.random()*items.length)].name;
+			item = items[Math.floor(Math.random()*items.length)].name + ": " + items[Math.floor(Math.random()*items.length)].detail;
 		}
 	}
 
@@ -70,7 +70,7 @@
 		{ name: '영월촌놈', detail: '맛은 김삼보 열화판. 공간은 쾌적', korean: true },
 		{ name: '킹콩부대찌개', detail: '대한미국놈 부대찌개', korean: true },
 		{ name: '바스버거', detail: '감튀가 무제한인 그곳', western: true },
-		{ name: '하동관', detail: '역사와 전통의 공공', korean: true },
+		{ name: '하동관', detail: '역사와 전통의 국밥집', korean: true },
 		{ name: '겐카츠', detail: '고급 돈까스집', japanese: true },
 		{ name: '국회도서관', detail: '구내식당. 맛있지만 붐빔', korean: true },
 		{ name: '국회박물관', detail: '구내식당. 조금 덜 맛있지만 안붐비고 조금 더 가까움', korean: true },
