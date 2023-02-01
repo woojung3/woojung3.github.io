@@ -19,7 +19,8 @@
 		}
 		else
 		{
-			item = items[Math.floor(Math.random()*items.length)].name + ": " + items[Math.floor(Math.random()*items.length)].detail;
+			let tmp_item = items[Math.floor(Math.random()*items.length)]
+			item = tmp_item.name + ": " + tmp_item.detail
 		}
 	}
 
