@@ -34,6 +34,8 @@
         <DropdownMenu end>
           <DropdownItem href="/presentations">Presentations</DropdownItem>
           <DropdownItem href="/papers">Papers</DropdownItem>
+          <DropdownItem href="/achievements">Achievements</DropdownItem>
+          <DropdownItem divider />
           <DropdownItem href="/tools">Tools</DropdownItem>
           <DropdownItem divider />
           <DropdownItem href="/about">About</DropdownItem>
