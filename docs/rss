@@ -6,33 +6,39 @@
 <link>https://woojung3.github.io</link>
 <atom:link href="https://woojung3.github.io/rss.xml" rel="self" type="application/rss+xml"/>
 <item>
-<guid isPermaLink="true">https://woojung3.github.io//blog/5</guid>
+<guid isPermaLink="true">https://woojung3.github.io//blog/20230204</guid>
+<title>설해원 태교여행</title>
+<link>https://woojung3.github.io//blog/20230204</link>
+<description>설해원 태교여행</description>
+<pubDate>Sat, 04 Feb 2023 00:00:00 GMT</pubDate>
+</item><item>
+<guid isPermaLink="true">https://woojung3.github.io//blog/20230131</guid>
 <title>블로그 이전</title>
-<link>https://woojung3.github.io//blog/5</link>
+<link>https://woojung3.github.io//blog/20230131</link>
 <description>블로그 이전</description>
 <pubDate>Tue, 31 Jan 2023 00:00:00 GMT</pubDate>
 </item><item>
-<guid isPermaLink="true">https://woojung3.github.io//blog/1</guid>
+<guid isPermaLink="true">https://woojung3.github.io//blog/20230130</guid>
 <title>깃허브 페이지 개설</title>
-<link>https://woojung3.github.io//blog/1</link>
+<link>https://woojung3.github.io//blog/20230130</link>
 <description>깃허브 페이지 개설</description>
 <pubDate>Mon, 30 Jan 2023 00:00:00 GMT</pubDate>
 </item><item>
-<guid isPermaLink="true">https://woojung3.github.io//blog/4</guid>
+<guid isPermaLink="true">https://woojung3.github.io//blog/20191025</guid>
 <title>명지대학교 가을</title>
-<link>https://woojung3.github.io//blog/4</link>
+<link>https://woojung3.github.io//blog/20191025</link>
 <description>명지대학교 가을</description>
 <pubDate>Fri, 25 Oct 2019 00:00:00 GMT</pubDate>
 </item><item>
-<guid isPermaLink="true">https://woojung3.github.io//blog/3</guid>
+<guid isPermaLink="true">https://woojung3.github.io//blog/20190418</guid>
 <title>명지대학교 봄</title>
-<link>https://woojung3.github.io//blog/3</link>
+<link>https://woojung3.github.io//blog/20190418</link>
 <description>명지대학교 봄</description>
 <pubDate>Thu, 18 Apr 2019 00:00:00 GMT</pubDate>
 </item><item>
-<guid isPermaLink="true">https://woojung3.github.io//blog/2</guid>
+<guid isPermaLink="true">https://woojung3.github.io//blog/20170207</guid>
 <title>정보보안연구실 정리</title>
-<link>https://woojung3.github.io//blog/2</link>
+<link>https://woojung3.github.io//blog/20170207</link>
 <description>정보보안연구실 정리</description>
 <pubDate>Tue, 07 Feb 2017 00:00:00 GMT</pubDate>
 </item>
