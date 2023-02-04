@@ -14,39 +14,31 @@
     DropdownItem
   } from 'sveltestrap';
 
-  let currentWidth = 0;
+  let isOpen = false;
+
+  function handleUpdate(event) {
+    isOpen = event.detail.isOpen;
+  }
 </script>
-
-<svelte:window bind:outerWidth={currentWidth}/>
-
-<p>size: {currentWidth}px</p>
 
 <Navbar color="light" light expand="md">
   <NavbarBrand href="/">Home</NavbarBrand>
-    {#if currentWidth >= 800}
-      <Nav class="ml-auto" navbar>
-        <NavItem>
-          <NavLink href="/blog">Blog</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/presentations">Presentations</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/papers">Papers</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/about">About</NavLink>
-        </NavItem>
-      </Nav>
-    {:else}
-      <Dropdown nav inNavbar style="list-style-type: none">
-        <DropdownToggle nav caret>Menu</DropdownToggle>
-        <DropdownMenu right>
-          <DropdownItem href="/blog">Blog</DropdownItem>
+  <NavbarToggler on:click={() => (isOpen = !isOpen)} />
+  <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
+    <Nav class="ms-auto" navbar>
+      <NavItem>
+        <NavLink href="/blog">Blog</NavLink>
+      </NavItem>
+      <Dropdown nav inNavbar>
+        <DropdownToggle nav caret>Others</DropdownToggle>
+        <DropdownMenu end>
           <DropdownItem href="/presentations">Presentations</DropdownItem>
           <DropdownItem href="/papers">Papers</DropdownItem>
+          <DropdownItem href="/tools">Tools</DropdownItem>
+          <DropdownItem divider />
           <DropdownItem href="/about">About</DropdownItem>
         </DropdownMenu>
       </Dropdown>
-    {/if}
+    </Nav>
+  </Collapse>
 </Navbar>
