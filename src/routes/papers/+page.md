@@ -1,11 +1,15 @@
 # Papers
 
+- Analysis of SPAKE2+ in CCC Digital Key Standard, (Hangkook Cho, Jeyoung An, Euihyun Kim, Jinwoo Lee), Korea Institute Of Information Security And Cryptology, 2023/10/25
+    - 국문: CCC Digital Key 내 SPAKE2+ 적용례 분석 및 고찰, (조항국, 안제영, 김의현, 이진우), 한국정보보호학회 영남지부 학술대회, 2023/10/25
 - The Method to increase the efficiency of the butterfly key expansion algorithm in SCMS, (Hyun Min Choi, Jun Seok Lee, Daniel ES Kim, Kiho Joo, Harry Han, Jinwoo Lee), Conference on Information Security and Cryptography – Summer 2020, 2020/07/15
+    - 국문: SCMS에서 버터플라이 키 확장 알고리즘의 효율성 증대 기법, (최현민, 이준석, 김의석, 주기호, 곽권구, 한준혁, 이진우), 한국정보보호학회 하계학술대회, 2020/07/15
 - Automatic Recording and Management of Security Stack Performance Using Jenkins Continuous Integration Tool, (JeongEun Ki, TaeHwa Kim, Duk Soo Kim, Jungwon Lee, Harry Han, Jinwoo Lee), Conference on Information Security and Cryptography – Summer 2020, 2020/07/15
-- Preprint submitted to Journal of Information Security and Applications, and under review, 2020/02/01
+    - 국문: 지속적 통합 도구 Jenkins를 이용한 보안 스택 성능 측정 및 기록 자동화, (기정은, 김태화, 김덕수, 이정원, 한준혁, 이진우), 한국정보보호학회 하계학술대회, 2020/07/15
 - New Parameter Sets for SPHINCS+, (Jinwoo Lee, Tae Gu Kang, Kookrae Cho, Dae Hyun Yum), IEICE Transactions on Information and Systems, 2019/12/19 (Accepted)
 - On the Performance Analysis of SPHINCS+ Verification, (Taegu Kang, Jinwoo Lee, Kookrae Cho, and Dae Hyun Yum), IEICE Transactions on Information and Systems, 2019/12/01
 - Bitcoin Mining Profitability Model and Analysis, (Jinwoo Lee, Kookrae Cho, and Dae Hyun Yum), Journal of the Korea Institute of Information Security and Cryptology, 2018/04
+    - 국문: 비트코인 채굴 수익성 모델 및 분석, (이진우, 조국래, 염대현), 정보보호학회 논문지, 2020/07/15
 - Thesis: Upper and Lower Bounds for Android Unlock Patterns, (Jinwoo Lee), POSTECH, 2016/12/20
 - A Visibility-Based Lower Bound for Android Unlock Patterns, (Jinwoo Lee, Jae Woo Seo, Kookrae Cho, Pil Joong Lee, and Dae Hyun Yum), IEICE Transactions on Information and Systems, 2017/03/01
 - A Visiblity-Based Upper Bound for Android Unlock Patterns, (Jinwoo Lee, Jae Woo Seo, Kookrae Cho, Pil Joong Lee, Juneyeun Kim, Seung Hoon Choi, and Dae Hyun Yum), IEICE Transactions on Information and Systems, 2016/11/01

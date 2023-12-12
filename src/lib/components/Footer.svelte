@@ -21,7 +21,7 @@
   }
 </script>
 
-<Navbar color="light" light expand="md">
+<Navbar class="footer" color="light" light expand="md">
   <NavbarBrand></NavbarBrand>
     <Nav class="ml-auto" navbar>
       <NavItem>

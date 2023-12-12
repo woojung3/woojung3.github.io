@@ -1,4 +1,8 @@
 /* style.css */
+:root { 
+    --global-footer-height: 2rem;
+}
+
 body {
 	margin: 0;
 	background: #eee !important;
@@ -9,9 +13,18 @@ body {
 main {
 	padding: 1rem;
 	margin: 2rem auto;
-	max-width: 40rem;
+	max-width: 40rem; 
+    min-height: calc(100vh - 5.5*var(--global-footer-height)); /* 5.5: magic number */
 }
 
 img {
 	max-width: 100%;
+}
+
+header { 
+    height: var(--global-footer-height);
+}
+
+footer { 
+    height: var(--global-footer-height);
 }

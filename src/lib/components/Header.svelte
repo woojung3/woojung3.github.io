@@ -21,7 +21,7 @@
   }
 </script>
 
-<Navbar color="light" light expand="md">
+<Navbar class="header" color="light" light expand="md">
   <NavbarBrand href="/">Home</NavbarBrand>
   <NavbarToggler on:click={() => (isOpen = !isOpen)} />
   <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
