@@ -4,19 +4,17 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="../favicon.png" />
 		<meta name="viewport" content="width=device-width" />
-		<meta http-equiv="content-security-policy" content="">
-		<link href="../_app/immutable/assets/_layout-65120509.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/Offcanvas-60614438.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/_layout-48fa63fb.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/start-9a7b0b01.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index-2aab38e9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons-486402b2.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index-6d777aaf.js">
-		<link rel="modulepreload" href="../_app/immutable/components/pages/_layout.svelte-0c3840c0.js">
-		<link rel="modulepreload" href="../_app/immutable/modules/pages/_layout.js-bc90e16e.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_layout-2f807c69.js">
-		<link rel="modulepreload" href="../_app/immutable/components/pages/blog/20191025/_page.md-b9020da0.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/post-1c991a6d.js">
+		
+		<link href="../_app/immutable/assets/0.858c6e10.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Offcanvas.60614438.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.00997875.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.000b7253.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.f70393af.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.ba199105.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.6b176dc3.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.1b10f2c3.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/8.2a58e586.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/post.4e02d268.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -55,22 +53,31 @@
         </a></li></ul></div></nav>
 
 
-		<script type="module" data-sveltekit-hydrate="1e12zzn">
-			import { start } from "../_app/immutable/start-9a7b0b01.js";
+			
+			<script>
+				{
+					__sveltekit_5riblg = {
+						base: new URL("..", location).pathname.slice(0, -1),
+						env: {}
+					};
 
-			start({
-				env: {},
-				paths: {"assets":"","base":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1e12zzn"]').parentNode,
-				version: "1707486207625",
-				hydrate: {
-					node_ids: [0, 8],
-					data: [null,null],
-					form: null,
-					error: null
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null];
+
+					Promise.all([
+						import("../_app/immutable/entry/start.00997875.js"),
+						import("../_app/immutable/entry/app.6b176dc3.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 8],
+							data,
+							form: null,
+							error: null
+						});
+					});
 				}
-			});
-		</script>
-	</div>
+			</script>
+		</div>
 	</body>
 </html>
