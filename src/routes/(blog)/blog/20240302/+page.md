@@ -7,7 +7,7 @@ date: "2024-03-02"
 
 [처음 세팅할 때 작성했던 포스트](/blog/20230326)
 
-<video width="600" height="600" controls>
+<video width="100%" controls>
   <source src="/image/2024-03-02/obsidian-1year.mp4" type="video/mp4">
 </video>
 
