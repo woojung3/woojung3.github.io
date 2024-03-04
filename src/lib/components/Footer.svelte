@@ -25,7 +25,7 @@
   <NavbarBrand></NavbarBrand>
     <Nav class="ml-auto" navbar>
       <NavItem>
-        <NavLink href="/rss">
+        <NavLink href="/feed.xml">
           <img src="/image/rss-feed-symbol.png" alt="drawing" width="10"/> rss | © woojung3
         </NavLink>
       </NavItem>
