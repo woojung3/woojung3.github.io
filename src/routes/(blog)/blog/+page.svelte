@@ -14,7 +14,7 @@
   <li class="item">
     <p style="text-align:left;">
       <a href={item.path}> {item.meta.title} </a>
-      <span style="float:right;">
+      <span style="float:right;color:#828282;font-size:small">
         Published {item.meta.date}
       </span>
     </p>
