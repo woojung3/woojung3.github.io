@@ -16,7 +16,7 @@ export const GET = async () => {
   const options = {
     headers: {
       'Cache-Control': 'max-age=0, s-maxage=3600',
-      'Content-Type': 'application/rss+xml; charset=UTF-8',
+      'Content-Type': 'application/xml;',
     }
   };
 
@@ -33,7 +33,7 @@ const render = (posts) =>
 <title>${siteTitle}</title>
 <description>${siteDescription}</description>
 <link>${siteURL}</link>
-<atom:link href="${siteURL}/rss.xml" rel="self" type="application/rss+xml"/>
+<atom:link href="${siteURL}/feed.xml" rel="self" type="application/rss+xml"/>
 ${posts
   .map(
     (post) => `<item>
