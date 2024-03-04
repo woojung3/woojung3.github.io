@@ -1,3 +1,8 @@
 # [woojung3.github.io](https://woojung3.github.io/)
 
 woojung3의 개인 github 페이지입니다.
+
+- sudo npm install n -g
+- sudo npm install -g npm@latest
+- npm run dev
+- npm run build

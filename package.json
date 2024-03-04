@@ -25,6 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@giscus/svelte": "^3.0.0",
 		"bootstrap": "^5.3.0",
 		"svelte-paginate": "^0.1.0",
 		"sveltestrap": "^5.10.0"
