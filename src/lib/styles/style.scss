@@ -40,22 +40,3 @@ a {
 a:hover {
   color: #e67e22; /* Change color on hover */
 }
-
-/* Custom pseudo-element for the underline effect */
-a::before {
-  content: ''; /* Empty content */
-  position: absolute; /* Position relative to the anchor element */
-  width: 100%; /* Full width */
-  height: 2px; /* Thickness of the underline */
-  background-color: #3498db; /* Default underline color */
-  bottom: 0; /* Position at the bottom of the anchor element */
-  left: 0; /* Align to the left */
-  transform: scaleX(0); /* Initially invisible */
-  transform-origin: bottom right; /* Animation origin */
-  transition: transform 0.3s ease; /* Smooth transition */
-}
-
-a:hover::before {
-  transform: scaleX(1); /* Fully visible on hover */
-  transform-origin: bottom left; /* Animation origin */
-}

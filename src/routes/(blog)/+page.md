@@ -3,7 +3,8 @@
   let posts = data.recentPosts
 </script>
 
-<img src="/image/juha_main.jpeg" alt="juha" width="100%"/><br><br>
+<a href="/html/juha-first-birthday/index.html"><img src="/image/juha_main.jpeg" alt="juha" width="100%"/></a>
+<br><br>
 
 # <p style="text-align: center;">Jinwoo's Blog</p>
 
