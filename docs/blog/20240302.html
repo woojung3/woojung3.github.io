@@ -4,20 +4,18 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="../favicon.png" />
 		<meta name="viewport" content="width=device-width" />
-		<meta http-equiv="content-security-policy" content="">
-		<link href="../_app/immutable/assets/_layout-65120509.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/Offcanvas-60614438.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/_layout-48fa63fb.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/start-bb4bf655.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index-9bde2535.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/singletons-4a5db2a2.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/index-f971f6d6.js">
-		<link rel="modulepreload" href="../_app/immutable/components/layout.svelte-e098dd3d.js">
-		<link rel="modulepreload" href="../_app/immutable/components/pages/(blog)/_layout.svelte-45fea41c.js">
-		<link rel="modulepreload" href="../_app/immutable/modules/pages/(blog)/_layout.js-ae7277c7.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/_layout-2f807c69.js">
-		<link rel="modulepreload" href="../_app/immutable/components/pages/(blog)/blog/20240302/_page.md-520325c9.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/post-1886bc65.js">
+		
+		<link href="../_app/immutable/assets/2.858c6e10.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/Offcanvas.60614438.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.adfeefd8.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.604c871d.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/singletons.3cbc320e.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/index.3c0f997c.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.82fc27f7.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.f973e0d8.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/2.0940d1c0.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/17.1b909139.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/post.ee0cf507.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -42,7 +40,7 @@
 
 <article><h1>옵시디언 일년 사용 후기</h1>
 
-  <p>Published: 2024-03-02</p>
+  <p style="color:#828282;font-size:small">Published: 2024-03-02</p>
 
   <p>옵시디언을 사용한지 일년이 되었다.</p>
 <p><a href="/blog/20230326">처음 세팅할 때 작성했던 포스트</a></p>
@@ -60,7 +58,11 @@
 <p>데일리 노트도 스팸화되는 경향이 있었다. 위클리 회고 노트로 한주간 작성한 데일리 노트를 정리한 뒤 데일리 노트 원본은 삭제하였다.</p>
 <p>제텔카스텐 노트간에 상호참조를 많이 하면 그래프가 너무 얽혀버려서 검색의 효율이 현저하게 낮아지는 경향이 있었다.
 어떤 사람들에게는 최대한의 연결성이 필요할지도 모르겠지만, 나에게는 정보간의 연결성을 명료하게 파악하는 것이 더 중요했으므로(그래야 더 쉽게 찾을 수 있었다) 노트간의 상호참조를 줄였다.</p>
-<p>현재 업무에 필요한 정보들은 충분히 정리한 것 같다. 옵시디언이 업무에 유의미하게 도움이 되고 있으며, 현재 사용하고 있는 시스템은 앞으로도 당분간은 사용할 수 있을 것 같다.</p></article></main>
+<p>현재 업무에 필요한 정보들은 충분히 정리한 것 같다. 옵시디언이 업무에 유의미하게 도움이 되고 있으며, 현재 사용하고 있는 시스템은 앞으로도 당분간은 사용할 수 있을 것 같다.</p>
+
+  <br><hr>
+
+  <script src="https://giscus.app/client.js" data-repo="woojung3/woojung3.github.io" data-repo-id="R_kgDOI3E2IA" data-category="Announcements" data-category-id="DIC_kwDOI3E2IM4CdtCg" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async></script></article></main>
 
 
 
@@ -70,22 +72,31 @@
         </a></li></ul></div></nav>
 
 
-		<script type="module" data-sveltekit-hydrate="1yhtcfy">
-			import { start } from "../_app/immutable/start-bb4bf655.js";
+			
+			<script>
+				{
+					__sveltekit_1ac7lh2 = {
+						base: new URL("..", location).pathname.slice(0, -1),
+						env: {}
+					};
 
-			start({
-				env: {},
-				paths: {"assets":"","base":""},
-				target: document.querySelector('[data-sveltekit-hydrate="1yhtcfy"]').parentNode,
-				version: "1709384384160",
-				hydrate: {
-					node_ids: [0, 2, 17],
-					data: [null,null,null],
-					form: null,
-					error: null
+					const element = document.currentScript.parentElement;
+
+					const data = [null,null,null];
+
+					Promise.all([
+						import("../_app/immutable/entry/start.adfeefd8.js"),
+						import("../_app/immutable/entry/app.82fc27f7.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2, 17],
+							data,
+							form: null,
+							error: null
+						});
+					});
 				}
-			});
-		</script>
-	</div>
+			</script>
+		</div>
 	</body>
 </html>
