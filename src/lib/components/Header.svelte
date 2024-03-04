@@ -12,7 +12,7 @@
     DropdownToggle,
     DropdownMenu,
     DropdownItem
-  } from 'sveltestrap';
+  } from '@sveltestrap/sveltestrap';
 
   let isOpen = false;
 

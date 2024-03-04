@@ -1,6 +1,4 @@
 <script>
-	import { Button } from 'sveltestrap';
-
 	let presentationList = [
 		{
 			url: "https://youtu.be/2EHuWhpa_Ok?si=7AVpfI_YbVDFzHxh",
