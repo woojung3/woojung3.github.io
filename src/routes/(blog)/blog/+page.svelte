@@ -12,13 +12,12 @@
 <ul class="items">
   {#each paginatedItems as item}
   <li class="item">
-    <p style="text-align:left;">
+    <p style="text-align:left;margin:7px 0">
       <a href={item.path}> {item.meta.title} </a>
       <span style="float:right;color:#828282;font-size:small">
         Published {item.meta.date}
       </span>
     </p>
-    <hr>
   </li>
   {/each}
 </ul>
