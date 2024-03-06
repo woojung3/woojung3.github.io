@@ -32,9 +32,9 @@
       <Dropdown nav inNavbar>
         <DropdownToggle nav caret>Others</DropdownToggle>
         <DropdownMenu end>
-          <DropdownItem href="/presentations">Presentations</DropdownItem>
           <DropdownItem href="/papers">Papers</DropdownItem>
           <DropdownItem href="/achievements">Achievements</DropdownItem>
+          <DropdownItem href="/presentations">Presentations</DropdownItem>
           <DropdownItem divider />
           <DropdownItem href="/tools">Tools</DropdownItem>
           <DropdownItem divider />

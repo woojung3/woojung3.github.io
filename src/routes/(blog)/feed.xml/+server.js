@@ -1,4 +1,4 @@
-import { fetchMarkdownPosts } from '$lib/utils'
+import { fetchMarkdownPosts } from '$lib/utils/fetch.js'
 
 const siteURL = 'https://woojung3.github.io'
 const siteTitle = 'Jinwoo\'s personal space'
