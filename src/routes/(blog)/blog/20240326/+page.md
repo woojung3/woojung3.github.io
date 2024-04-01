@@ -3,6 +3,8 @@ title: 예테보리 출장 (1/2)
 date: "2024-03-26"
 ---
 
+<script>import { siteDomain } from '$lib/utils/stores.js'</script>
+
 급작스럽게 출장이 잡혔다. 출장지는 스웨덴 예테보리.<br/>
 북유럽에 오는 것은 이번이 처음이다. 주하를 두고 장기 출장을 가는 것도 처음이다.
 
@@ -47,7 +49,7 @@ _하가 지구_
 ![alt](/image/2024-03-26/skansen_kronan.jpg)
 _스칸센 크로난_
 
-<iframe width="100%" height="400" allowfullscreen style="border-style:none;" src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://woojung3.github.io/image/2024-03-26/skansen_kronan.jpg&amp;autoLoad=true&amp;autoRotate=-2&amp;haov=270.00&amp;vaov=90.00&amp;vOffset=0.00"></iframe>
+<iframe width="100%" height="400" allowfullscreen style="border-style:none;" src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama={siteDomain}/image/2024-03-26/skansen_kronan.jpg&amp;autoLoad=true&amp;autoRotate=-2&amp;haov=270.00&amp;vaov=90.00&amp;vOffset=0.00"></iframe>
 
 _스칸센 크로난 - 파노라마_
 
