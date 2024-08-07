@@ -3,6 +3,8 @@ title: 천왕봉 일출
 date: "2024-07-31"
 ---
 
+<script>import { siteDomain } from '$lib/utils/stores.js'</script>
+
 아내와 1박 2일로 지리산 천왕봉에 다녀왔다.
 
 ![alt](/image/2024-07-31/일출.jpg)
@@ -30,3 +32,9 @@ date: "2024-07-31"
 *세석평전*
 
 일출 후 장터목 → 세석 → 한신계곡 → 백무동 길로 하산하였다.
+
+<iframe width="100%" height="400" allowfullscreen style="border-style:none;" src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama={siteDomain}/image/2024-07-31/장터목.jpg&amp;autoLoad=true&amp;autoRotate=-2&amp;haov=360.00&amp;vOffset=0.00"></iframe>
+
+*장터목 대피소- 파노라마*
+
+첫날은 백무동 → 장터목 길로 산에 올랐다. 첫날도 둘째 날만큼 날씨가 좋았다.
