@@ -48,8 +48,7 @@ LA 공항에서 차를 빌려 샌디에고까지 이동했다. 바다사자를 �
 
 인상깊은 작품으로는, 고흐의 붓꽃(Irises)을 고흐가 그림을 그렸을 당시의 추정 모습으로 복제한 것이 있었다. 복제품과 원본이 같은 방에 전시되어 있어서, 열심히 비교하면서 보았다.
 
-<iframe width="100%" height="400" allowfullscreen style="border-style:none;" src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama={siteDomain}/image/2024-11-04/the_getty_LA.jpg&amp;autoLoad=true&amp;haov=180.00&amp;vOffset=0.00"></iframe>
-
+![alt](/image/2024-11-04/the_getty_LA.jpg)
 *게티 미술관 - LA 시내 방향 풍경*
 
 선인장 정원 너머로 LA 시내가 넓게 펼쳐진다. 다운타운부터 태평양까지를 볼 수 있었다.
