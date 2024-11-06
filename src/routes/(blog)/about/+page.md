@@ -17,7 +17,7 @@
 
 📍 (〒07327) Eusu Holdings Bldg., 16th Fl. 25 Gukjegeumyung-ro 2-gil, Yeongdeungpo-gu, Seoul, Korea
 
-📧 jwlee@autocrypt.io / [linkedin](https://www.linkedin.com/in/jinwoo-lee-ph-d-795905157)
+📧 jwlee@autocrypt.io / [linkedin](https://www.linkedin.com/in/jinwoo-lee-795905157)
 
 
 ![my image](/image/jwlee.jpg)
