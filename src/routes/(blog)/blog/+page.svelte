@@ -45,7 +45,7 @@
 />
 
 <style>
-  hr {
+  :global(hr) {
     padding: 0px;
     margin: 0px;    
   }
