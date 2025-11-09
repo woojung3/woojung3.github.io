@@ -6,6 +6,12 @@
 <link>https://woojung3.github.io</link>
 <atom:link href="https://woojung3.github.io/feed.xml" rel="self" type="application/rss+xml"/>
 <item>
+<guid isPermaLink="true">https://woojung3.github.io/blog/20251109</guid>
+<title>Get Your Hands Dirty on Clean Architecture 2판 소고</title>
+<link>https://woojung3.github.io/blog/20251109</link>
+<description>Get Your Hands Dirty on Clean Architecture 2판 소고</description>
+<pubDate>Sun, 09 Nov 2025 00:00:00 GMT</pubDate>
+</item><item>
 <guid isPermaLink="true">https://woojung3.github.io/blog/20241116</guid>
 <title>제주도 가족여행</title>
 <link>https://woojung3.github.io/blog/20241116</link>
@@ -119,12 +125,6 @@
 <link>https://woojung3.github.io/blog/20191025</link>
 <description>명지대학교 가을</description>
 <pubDate>Fri, 25 Oct 2019 00:00:00 GMT</pubDate>
-</item><item>
-<guid isPermaLink="true">https://woojung3.github.io/blog/20190418</guid>
-<title>명지대학교 봄</title>
-<link>https://woojung3.github.io/blog/20190418</link>
-<description>명지대학교 봄</description>
-<pubDate>Thu, 18 Apr 2019 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
