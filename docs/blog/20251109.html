@@ -7,12 +7,12 @@
 		
 		<link href="../_app/immutable/assets/Theme.CNRe0r1A.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/2.Bx6n-uHn.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.970ctR-w.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/BEC2DRgK.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BP-1kSB3.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Dm8qpGye.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/dINimkYx.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BUNPi5zr.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D8hNe1I_.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.Bh0YMwAv.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.vFnf141w.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/PPVm8Dsz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DZP4uFkA.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DgWj876G.js">
@@ -20,7 +20,7 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/gVo8sy4B.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CXkL9X-O.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/0.4dhTcLZb.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/2.CLFagW61.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/2.DMbAcbqD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/B933FF2z.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Fd3mP_ya.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/yZJi6teO.js">
@@ -32,7 +32,7 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/bOSLewm5.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents"><!--[--><!--[--><!----><!--[--><!----><!--[!--><!--]--><!----> <main><!--[--><!----><article><h1>Get Your Hands Dirty on Clean Architecture 2판 소고</h1> <p style="color:#828282;font-size:small">Published: 2025-11-09</p> <!--[--><p>이 글은 Get Your Hands Dirty on Clean Architecture 2판의 내용에 대해 개인적으로 보충 의견을 작성한 것이다.</p> <hr/> <h2>헥사고날 아키텍처의 본질: 내부와 외부의 계약</h2> <p><em>헥사고날 아키텍처가 명확히 하는 영역과 그렇지 않은 영역을 확실하게 인지하는 것이 중요하다.</em></p> <p>헥사고날 아키텍처의 근본은 외부 요인이 내부 도메인 로직에 미치는 영향을 최소화하는 데 있다. 이를 위해 포트와 어댑터를 통해 애플리케이션의 안쪽과 바깥쪽의 상호작용에 대한 명확한 계약을 정의한다. 최종 목표는 개발자가 도메인 로직을 개발할 때 육각형 경계 밖의 기술적인 세부 사항들을 신경 쓰지 않도록 하는 것이다.</p> <p>아키텍처를 바라보는 관점에 따라, 내부와 외부의 구분 및 그 사이의 계약을 강조하면 헥사고날 아키텍처가 되고, 수직적인 계층 구분을 강조하면 계층형 아키텍처가 된다. 근본적인 아이디어는 크게 다르지 않다.</p> <p>이러한 계약은 인커밍/아웃고잉 포트와, 각 경계에서 통신을 위해 사용하는 데이터 모델(커맨드, DTO 등)들로 구체화된다.</p> <p>또한, 헥사고날 아키텍처는 육각형 내부, 즉 도메인 영역의 구현 방식에 대해서는 어떠한 제약도 두지 않는다. 도메인 영역을 풍부한 도메인 모델로 개발하든, 트랜잭션 스크립트 패턴을 사용하든 그것은 전적으로 개발자의 선택에 달려 있다.</p> <hr/> <h2>7장 영속성 어댑터 구현하기에 대한 보충: JPA 사용 시 고려사항</h2> <p>영속성 포트는 도메인 엔티티가 어떻게 영속화될지에 대한 계약으로 볼 수 있다. 이는 에릭 에반스의 도메인 주도 설계(DDD)에서 말하는 <strong>애그리거트</strong>의 역할과 일맥상통하며(애그리거트의 영속성을 다루는 관문 역할을 수행한다), <strong>스프링 데이터</strong>의 리포지토리 개념과도 유사하다.</p> <p>C++과 같이 ORM 도구가 부족한 언어를 사용하거나, <strong>스프링 데이터 JDBC</strong>처럼 계약을 명확히 정의하기 쉬운 도구를 사용할 경우, 아웃고잉 포트를 통한 영속성 계약은 매우 자연스럽게 적용된다. <strong>스프링 데이터 JDBC</strong>의 경우, 리포지토리 인터페이스 자체를 아웃고잉 포트로 간주해도 무방하다. 이때 인터페이스의 이름을 <code>...Repository</code> 대신 <code>...Port</code>로 명명하는 것은 아키텍처 규칙을 명확히 하는 데 도움이 된다.</p> <p>문제는 <strong>스프링 데이터 JPA</strong>를 사용할 때 발생한다. JPA의 영속성 컨텍스트 때문에 JPA 엔티티를 도메인 엔티티로 함께 사용하면 아웃고잉 포트의 계약이 쉽게 무너질 수 있다. 영속성 컨텍스트의 목적은 엔티티 조작을 데이터베이스에 매끄럽게 반영하여 객체-관계의 불일치를 줄이는 것이지만, 이러한 ‘매끄러운’ 동작은 헥사고날 아키텍처의 아웃고잉 포트(또는 DDD의 애그리거트)가 추구하는 명확한 계약 기반의 상호작용과 상충된다.</p> <p>헥사고날 아키텍처(또는 DDD의 애그리거트)의 원칙에 따라 순수한 계약 기반 아키텍처를 구축하고자 한다면 JPA 사용을 신중히 고려해야 한다. 그럼에도 JPA를 사용해야 한다면, 매핑 비용을 감수하고 도메인 모델과 영속성 모델을 분리하는 것이 바람직하다.</p> <p>하지만 JPA를 사용하면서 반드시 영속성에 대한 ‘계약’을 엄격하게 강조해야만 할까? DDD의 핵심 목표 중 하나는 도메인 전문가의 정신 모델과 코드 간의 간극을 줄이는 것이다. 애그리거트나 아웃고잉 포트를 통한 명시적 계약이 아니더라도 이 목표를 달성할 수 있다면, 계약을 다소 완화하는 접근도 가능하다.</p> <p>이 경우 몇 가지 주의할 점이 있다. JPA를 사용한다면, 도메인 모델을 다루는 모든 행위가 인프라스트럭처와의 암묵적인 계약을 이용하는 것임을 인지해야 한다. 복잡한 유스케이스의 경우, 도메인 엔티티에 대한 연산을 무분별하게 조합하기보다, 사용 사례에 맞춰 별도의 메서드로 캡슐화하여 엔티티의 생명주기가 꼬이지 않도록 관리하는 편이 낫다. 즉, 계약을 관리해야 하는 책임의 위치가 포트에서 서비스 계층이나 도메인 모델 자체로 이동하는 것이다.</p> <p>결론적으로, JPA 엔티티를 도메인 엔티티로 사용한다면 아웃고잉 포트만으로는 계약을 강제할 수 없다. 포트를 통해 계약을 강제하려면 도메인 엔티티와 JPA 엔티티를 분리해야 한다. 포트를 두지 않기로 했다면, 도메인 엔티티(곧 JPA 엔티티)에 대한 모든 조작이 인프라 조작으로 이어질 수 있음을 항상 인지하고 신중하게 다루어야 한다.</p> <p>개발 속도 향상, SQL 회피, 데이터베이스 교체의 유연성 등을 고려할 때 JPA는 분명 강력한 도구이다. 그러나 JPA를 선택할 경우, 도메인 모델과 영속성 모델 간의 매핑 비용을 감수하지 않는 이상 ‘계약’의 명확성이 희생될 수 있다는 점을 명심해야 한다.</p> <hr/> <h2>9장 경계 간 매핑에 대한 보충: 포트 생략 시의 매핑 전략</h2> <p><em>원저 9장에서는 주로 각 경계에 모델이 존재하는 경우의 매핑 전략을 다룬다. 하지만 실무에서는 인커밍 포트나 아웃고잉 포트가 생략되는 경우가 많다. 이 절에서는 포트가 생략된 아키텍처에서의 매핑 흐름과 의존성 문제를 보충하여 설명한다.</em></p> <p>원저는 헥사고날 아키텍처를 전제로 하므로, 매핑 전략을 논할 때도 인커밍 포트와 아웃고잉 포트가 모두 존재하는 상태를 기준으로 설명한다.
+		<div style="display: contents"><!--[--><!--[--><!----><!--[--><!----><nav class="header navbar navbar-expand-md bg-light" data-bs-theme="light"><!--[--><div class="container-fluid"><!--[--><!--[--><a class="navbar-brand" href="/"><!--[--><!---->Home<!--]--></a><!----> <button class="navbar-toggler"><!--[--><span class="navbar-toggler-icon"></span><!--]--></button><!----> <!--[!--><!--]--><!----><!--]--><!--]--></div><!--]--></nav><!----> <main><!--[--><!----><article><h1>Get Your Hands Dirty on Clean Architecture 2판 소고</h1> <p style="color:#828282;font-size:small">Published: 2025-11-09</p> <!--[--><p>이 글은 Get Your Hands Dirty on Clean Architecture 2판의 내용에 대해 개인적으로 보충 의견을 작성한 것이다.</p> <hr/> <h2>헥사고날 아키텍처의 본질: 내부와 외부의 계약</h2> <p><em>헥사고날 아키텍처가 명확히 하는 영역과 그렇지 않은 영역을 확실하게 인지하는 것이 중요하다.</em></p> <p>헥사고날 아키텍처의 근본은 외부 요인이 내부 도메인 로직에 미치는 영향을 최소화하는 데 있다. 이를 위해 포트와 어댑터를 통해 애플리케이션의 안쪽과 바깥쪽의 상호작용에 대한 명확한 계약을 정의한다. 최종 목표는 개발자가 도메인 로직을 개발할 때 육각형 경계 밖의 기술적인 세부 사항들을 신경 쓰지 않도록 하는 것이다.</p> <p>아키텍처를 바라보는 관점에 따라, 내부와 외부의 구분 및 그 사이의 계약을 강조하면 헥사고날 아키텍처가 되고, 수직적인 계층 구분을 강조하면 계층형 아키텍처가 된다. 근본적인 아이디어는 크게 다르지 않다.</p> <p>이러한 계약은 인커밍/아웃고잉 포트와, 각 경계에서 통신을 위해 사용하는 데이터 모델(커맨드, DTO 등)들로 구체화된다.</p> <p>또한, 헥사고날 아키텍처는 육각형 내부, 즉 도메인 영역의 구현 방식에 대해서는 어떠한 제약도 두지 않는다. 도메인 영역을 풍부한 도메인 모델로 개발하든, 트랜잭션 스크립트 패턴을 사용하든 그것은 전적으로 개발자의 선택에 달려 있다.</p> <hr/> <h2>7장 영속성 어댑터 구현하기에 대한 보충: JPA 사용 시 고려사항</h2> <p>영속성 포트는 도메인 엔티티가 어떻게 영속화될지에 대한 계약으로 볼 수 있다. 이는 에릭 에반스의 도메인 주도 설계(DDD)에서 말하는 <strong>애그리거트</strong>의 역할과 일맥상통하며(애그리거트의 영속성을 다루는 관문 역할을 수행한다), <strong>스프링 데이터</strong>의 리포지토리 개념과도 유사하다.</p> <p>C++과 같이 ORM 도구가 부족한 언어를 사용하거나, <strong>스프링 데이터 JDBC</strong>처럼 계약을 명확히 정의하기 쉬운 도구를 사용할 경우, 아웃고잉 포트를 통한 영속성 계약은 매우 자연스럽게 적용된다. <strong>스프링 데이터 JDBC</strong>의 경우, 리포지토리 인터페이스 자체를 아웃고잉 포트로 간주해도 무방하다. 이때 인터페이스의 이름을 <code>...Repository</code> 대신 <code>...Port</code>로 명명하는 것은 아키텍처 규칙을 명확히 하는 데 도움이 된다.</p> <p>문제는 <strong>스프링 데이터 JPA</strong>를 사용할 때 발생한다. JPA의 영속성 컨텍스트 때문에 JPA 엔티티를 도메인 엔티티로 함께 사용하면 아웃고잉 포트의 계약이 쉽게 무너질 수 있다. 영속성 컨텍스트의 목적은 엔티티 조작을 데이터베이스에 매끄럽게 반영하여 객체-관계의 불일치를 줄이는 것이지만, 이러한 ‘매끄러운’ 동작은 헥사고날 아키텍처의 아웃고잉 포트(또는 DDD의 애그리거트)가 추구하는 명확한 계약 기반의 상호작용과 상충된다.</p> <p>헥사고날 아키텍처(또는 DDD의 애그리거트)의 원칙에 따라 순수한 계약 기반 아키텍처를 구축하고자 한다면 JPA 사용을 신중히 고려해야 한다. 그럼에도 JPA를 사용해야 한다면, 매핑 비용을 감수하고 도메인 모델과 영속성 모델을 분리하는 것이 바람직하다.</p> <p>하지만 JPA를 사용하면서 반드시 영속성에 대한 ‘계약’을 엄격하게 강조해야만 할까? DDD의 핵심 목표 중 하나는 도메인 전문가의 정신 모델과 코드 간의 간극을 줄이는 것이다. 애그리거트나 아웃고잉 포트를 통한 명시적 계약이 아니더라도 이 목표를 달성할 수 있다면, 계약을 다소 완화하는 접근도 가능하다.</p> <p>이 경우 몇 가지 주의할 점이 있다. JPA를 사용한다면, 도메인 모델을 다루는 모든 행위가 인프라스트럭처와의 암묵적인 계약을 이용하는 것임을 인지해야 한다. 복잡한 유스케이스의 경우, 도메인 엔티티에 대한 연산을 무분별하게 조합하기보다, 사용 사례에 맞춰 별도의 메서드로 캡슐화하여 엔티티의 생명주기가 꼬이지 않도록 관리하는 편이 낫다. 즉, 계약을 관리해야 하는 책임의 위치가 포트에서 서비스 계층이나 도메인 모델 자체로 이동하는 것이다.</p> <p>결론적으로, JPA 엔티티를 도메인 엔티티로 사용한다면 아웃고잉 포트만으로는 계약을 강제할 수 없다. 포트를 통해 계약을 강제하려면 도메인 엔티티와 JPA 엔티티를 분리해야 한다. 포트를 두지 않기로 했다면, 도메인 엔티티(곧 JPA 엔티티)에 대한 모든 조작이 인프라 조작으로 이어질 수 있음을 항상 인지하고 신중하게 다루어야 한다.</p> <p>개발 속도 향상, SQL 회피, 데이터베이스 교체의 유연성 등을 고려할 때 JPA는 분명 강력한 도구이다. 그러나 JPA를 선택할 경우, 도메인 모델과 영속성 모델 간의 매핑 비용을 감수하지 않는 이상 ‘계약’의 명확성이 희생될 수 있다는 점을 명심해야 한다.</p> <hr/> <h2>9장 경계 간 매핑에 대한 보충: 포트 생략 시의 매핑 전략</h2> <p><em>원저 9장에서는 주로 각 경계에 모델이 존재하는 경우의 매핑 전략을 다룬다. 하지만 실무에서는 인커밍 포트나 아웃고잉 포트가 생략되는 경우가 많다. 이 절에서는 포트가 생략된 아키텍처에서의 매핑 흐름과 의존성 문제를 보충하여 설명한다.</em></p> <p>원저는 헥사고날 아키텍처를 전제로 하므로, 매핑 전략을 논할 때도 인커밍 포트와 아웃고잉 포트가 모두 존재하는 상태를 기준으로 설명한다.
 그러나 실무에서 흔히 발견되는, 포트가 생략된 <code>컨트롤러 -DTO-> 서비스 --> 도메인 모델, 레포지토리</code> 구조를 헥사고날 아키텍처의 관점에서 분석해 보는 것은 원저의 이해를 돕는 데 유용할 것이다.
 이하의 논의에서는 ‘레포지토리’를 7장에 대한 보충에서 영속성 계약과 상충될 수 있다고 지적한 <strong>스프링 데이터 JPA</strong>의 ‘레포지토리’로 취급하며, 이를 사실상 아웃고잉 포트가 생략된 영속성 어댑터의 구현체로 간주한다.
 이 구조에서 발생하는 매핑의 흐름과 의존성 문제를 보충하여 설명한다.</p> <p>가장 단순한 웹 애플리케이션을 가정해보자. 컨트롤러는 웹 모델(즉, DTO)을 인자로 받아 서비스에 그대로 전달한다. 서비스는 JPA 리포지토리와 JPA 엔티티를 사용하여 웹 모델의 데이터로 엔티티를 조회하거나 생성한다.</p> <p>이 구조는 원저의 매핑 전략 중 어디에 해당할까?
@@ -40,15 +40,15 @@
 			
 			<script>
 				{
-					__sveltekit_1uflvoc = {
+					__sveltekit_1vo315h = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.970ctR-w.js"),
-						import("../_app/immutable/entry/app.Bh0YMwAv.js")
+						import("../_app/immutable/entry/start.BP-1kSB3.js"),
+						import("../_app/immutable/entry/app.vFnf141w.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 28],
