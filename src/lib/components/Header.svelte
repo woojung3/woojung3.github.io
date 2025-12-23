@@ -1,6 +1,6 @@
 <!-- Header.svelte -->
 <script>
-  import { browser } from '$app/environment';
+  import { onMount } from 'svelte';
   import {
     Collapse,
     Navbar,
@@ -16,13 +16,18 @@
   } from '@sveltestrap/sveltestrap';
 
   let isOpen = false;
+  let mounted = false;
+
+  onMount(() => {
+    mounted = true;
+  });
 
   function handleUpdate(event) {
     isOpen = event.detail.isOpen;
   }
 </script>
 
-{#if browser}
+{#if mounted}
   <Navbar class="header" color="light" light expand="md">
     <NavbarBrand href="/">Home</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
