@@ -31,7 +31,7 @@
   <Navbar class="header" color="light" light expand="md">
     <NavbarBrand href="/">Home</NavbarBrand>
     <NavbarToggler on:click={() => (isOpen = !isOpen)} />
-    <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
+    <Collapse {isOpen} navbar on:update={handleUpdate}>
       <Nav class="ms-auto" navbar>
         <NavItem>
           <NavLink href="/blog">Blog</NavLink>
