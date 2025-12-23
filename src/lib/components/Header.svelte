@@ -16,15 +16,15 @@
 
   let isOpen = false;
 
-  function toggle() {
-    isOpen = !isOpen;
+  function handleUpdate(event) {
+    isOpen = event.detail.isOpen;
   }
 </script>
 
 <Navbar class="header" color="light" light expand="md">
   <NavbarBrand href="/">Home</NavbarBrand>
-  <NavbarToggler on:click={toggle} />
-  <Collapse {isOpen} navbar>
+  <NavbarToggler on:click={() => (isOpen = !isOpen)} />
+  <Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
     <Nav class="ms-auto" navbar>
       <NavItem>
         <NavLink href="/blog">Blog</NavLink>
