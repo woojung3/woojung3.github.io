@@ -1,8 +1,4 @@
 <script>
-  import {
-      Row,
-      Col
-  } from '@sveltestrap/sveltestrap';
   import Box from '$lib/components/Box.svelte'
 
   import { isMobileStore } from '$lib/utils/stores.js'
@@ -10,8 +6,6 @@
   isMobileStore.subscribe((value) => {
     isMobile = value;
   });
-
-  $: cols = isMobile ? 1 : 3;
 
   export let data
   let posts = data.recentPosts
@@ -28,11 +22,11 @@
 
 ## 주요 페이지:
 
-<Row cols={cols}>
-  <Col><Box><h6><a href="/about">About</a></h6></Box></Col>
-  <Col><Box><h6><a href="/papers">Papers</a></h6></Box></Col>
-  <Col><Box><h6><a href="/achievements">Achievements</a></h6></Box></Col>
-</Row>
+<div class="row" class:row-cols-1={isMobile} class:row-cols-3={!isMobile}>
+  <div class="col"><Box><h6><a href="/about">About</a></h6></Box></div>
+  <div class="col"><Box><h6><a href="/papers">Papers</a></h6></Box></div>
+  <div class="col"><Box><h6><a href="/achievements">Achievements</a></h6></Box></div>
+</div>
 
 <br>
 
