@@ -1,0 +1,46 @@
+---
+import Site from "../layouts/Site.astro";
+import PostList from "./PostList.astro";
+import { posts } from "../lib/posts";
+interface Props {
+  current: number;
+}
+const { current } = Astro.props;
+const all = await posts();
+const size = 10;
+const count = Math.ceil(all.length / size);
+const url = (n: number) => (n === 1 ? "/blog/" : `/blog/page/${n}/`);
+---
+
+<Site title="Blog"
+  ><header class="page-heading">
+    <h1>Blog</h1><p>{all.length}개의 기록</p>
+  </header><PostList items={all.slice((current - 1) * size, current * size)} />
+  <nav class="pagination" aria-label="블로그 페이지">
+    {
+      current > 1 && (
+        <a href={url(current - 1)} rel="prev" aria-label="이전 페이지">
+          ←
+        </a>
+      )
+    }
+    {
+      Array.from({ length: count }, (_, i) => i + 1).map((n) => (
+        <a
+          href={url(n)}
+          aria-label={`${n} 페이지`}
+          aria-current={current === n ? "page" : undefined}
+        >
+          {n}
+        </a>
+      ))
+    }
+    {
+      current < count && (
+        <a href={url(current + 1)} rel="next" aria-label="다음 페이지">
+          →
+        </a>
+      )
+    }
+  </nav></Site
+>

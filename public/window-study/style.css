@@ -1,0 +1,17 @@
+:host{display:block;position:relative;container-type:inline-size;height:560px;min-height:0;isolation:isolate;color-scheme:light;font-family:inherit;color:#454b43;--paper:#eeede8}
+*{box-sizing:border-box}[hidden]{display:none!important}
+.study{position:relative;height:100%;overflow:hidden;background:var(--paper)}
+#scene{position:absolute;inset:0}canvas{display:block;width:100%;height:100%;cursor:grab}canvas:active{cursor:grabbing}
+.controls{position:absolute;bottom:12px;right:12px;display:flex;gap:2px;align-items:center}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.controls button{display:grid;place-items:center;width:40px;height:40px;padding:10px;background:transparent;border:0;border-radius:2px;opacity:.65}
+.controls button:hover,.controls button:focus-visible{opacity:1;background:#eeede8b3}
+.controls svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible,canvas:focus-visible{outline:2px solid #526747;outline-offset:-3px}
+:host([night]){color:#d9dfdc}
+:host([night]) .controls button:hover,:host([night]) .controls button:focus-visible{background:#161e29b3}
+:host([night]) button:focus-visible,:host([night]) canvas:focus-visible{outline-color:#d9dfdc}
+.loading,.error-state{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--paper);color:#62685e;font-size:13px;z-index:2}
+.loading{transition:opacity .3s}.loading.done{opacity:0;pointer-events:none}
+.error-state button{border:1px solid #a5aaa0;background:transparent;padding:8px 18px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

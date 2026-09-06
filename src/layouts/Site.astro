@@ -1,0 +1,71 @@
+---
+import "../styles/site.css";
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "보안 프로그래밍 & 가정의 행복 & 주님의 은혜" } =
+  Astro.props;
+const nav = [
+  ["/", "Home"],
+  ["/blog/", "Blog"],
+  ["/papers/", "Papers"],
+  ["/work/", "Work"],
+  ["/about/", "About"],
+];
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {title === "Home" ? "Jinwoo's Blog" : `${title} — Jinwoo's Blog`}
+    </title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.png" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Jinwoo's Blog"
+      href="/feed.xml"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip" href="#main">본문으로 건너뛰기</a>
+    <header class="site-header">
+      <a class="signature" href="/"
+        >Jinwoo Lee<span class="signature-dot">.</span></a
+      >
+      <nav aria-label="주 메뉴">
+        {
+          nav.map(([href, label]) => (
+            <a
+              href={href}
+              aria-current={
+                (
+                  href === "/"
+                    ? Astro.url.pathname === "/"
+                    : Astro.url.pathname.startsWith(href)
+                )
+                  ? "page"
+                  : undefined
+              }
+            >
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer">
+      <span>© Jinwoo Lee</span><a href="/feed.xml">RSS ↗</a>
+    </footer>
+  </body>
+</html>

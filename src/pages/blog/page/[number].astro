@@ -1,0 +1,13 @@
+---
+import BlogPage from "../../../components/BlogPage.astro";
+import { posts } from "../../../lib/posts";
+export async function getStaticPaths() {
+  const count = Math.ceil((await posts()).length / 10);
+  return Array.from({ length: count - 1 }, (_, i) => ({
+    params: { number: String(i + 2) },
+    props: { current: i + 2 },
+  }));
+}
+---
+
+<BlogPage current={Astro.props.current} />

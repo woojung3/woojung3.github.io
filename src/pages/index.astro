@@ -1,0 +1,21 @@
+---
+import Site from "../layouts/Site.astro";
+import Desk from "../components/Desk.astro";
+import PostList from "../components/PostList.astro";
+import { posts } from "../lib/posts";
+const recent = (await posts()).slice(0, 5);
+---
+
+<Site title="Home">
+  <Desk />
+  <section class="intro">
+    <h1>Jinwoo's Blog</h1><p>
+      보안 프로그래밍 &amp; 가정의 행복 &amp; 주님의 은혜
+    </p>
+  </section>
+  <section aria-labelledby="recent">
+    <div class="section-heading">
+      <h2 id="recent">최근 게시물</h2><a href="/blog/">전체 글 ↗</a>
+    </div><PostList items={recent} />
+  </section>
+</Site>

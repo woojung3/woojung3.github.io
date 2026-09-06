@@ -1,32 +1,28 @@
 {
-	"name": "my-app",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
-		"postbuild": "npx svelte-sitemap --domain https://woojung3.github.io -o docs"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^7.0.0",
-		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.48.4",
-		"mdsvex": "^0.12.6",
-		"sass": "^1.93.3",
-		"svelte": "^5.43.5",
-		"svelte-check": "^4.3.3",
-		"svelte-preprocess": "^6.0.3",
-		"svelte-sitemap": "^2.7.1",
-		"typescript": "^5.9.3",
-		"vite": "^7.2.2"
-	},
-	"type": "module",
-	"dependencies": {
-		"@giscus/svelte": "^3.1.0",
-		"bootstrap": "^5.3.8",
-		"svelte-paginate": "^0.1.0"
-	}
+  "name": "jinwoo-personal-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 8081",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0 --port 8081",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/browser.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "astro": "^7.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@playwright/test": "^1.63.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }

@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { postUrl } from "../lib/posts";
+interface Props {
+  items: CollectionEntry<"posts">[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="post-list">
+  {
+    items.map((post) => (
+      <li>
+        <>
+          <a href={postUrl(post.id)}>{post.data.title}</a>
+          <time datetime={post.data.date}>
+            {post.data.date.replaceAll("-", ".")}
+          </time>
+        </>
+      </li>
+    ))
+  }
+</ul>
