@@ -22,8 +22,8 @@ export function buildRoom(scene){
   for(let x=-15;x<=15;x+=.68){const g=new THREE.BoxGeometry(.002,.0015,floorDepth);g.translate(x,.0008,floorCenter);groutGeometries.push(g);}
   for(let z=-15;z<=15;z+=.68){if(z<floorBack)continue;const g=new THREE.BoxGeometry(30,.0015,.002);g.translate(0,.0008,z);groutGeometries.push(g);}
   mesh(mergeGeometries(groutGeometries),M.grout);
-  box(.14,4.6,24,[-2.06,2.3,9.8],M.wall,0);
-  box(1.1,4.6,.18,[-1.44,2.3,-1.57],M.wall,0);
+  box(.14,4.6,24,[-2.06,2.3,9.8],M.wallWhite,0);
+  box(1.1,4.6,.18,[-1.44,2.3,-1.57],M.wallWhite,0);
   box(3.2,1.14,.18,[.70,.57,-1.57],M.wallWhite,0);
   box(3.2,1.8,.18,[.70,3.75,-1.57],M.wallWhite,0);
   box(16,4.6,.18,[10.22,2.3,-1.57],M.wallWhite,0);
@@ -62,6 +62,8 @@ export function buildRoom(scene){
   const backdrop=mesh(new THREE.PlaneGeometry(32,14),new THREE.MeshBasicMaterial({color:'#eff2e2',toneMapped:false}),[0,3,-8],room);backdrop.castShadow=false;backdrop.receiveShadow=false;
   const landscapeReady=new THREE.TextureLoader().loadAsync(new URL('./assets/garden.webp',import.meta.url).href).then(t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;backdrop.material.map=t;backdrop.material.color.set(0xffffff);backdrop.material.needsUpdate=true;}).catch(e=>{console.warn('Garden texture unavailable',e);});
   const glass=mesh(new THREE.PlaneGeometry(3.0,1.63),new THREE.MeshPhysicalMaterial({color:'#eaf2ee',metalness:0,roughness:.08,transparent:true,opacity:.06,depthWrite:false,side:THREE.DoubleSide}),[.68,2.05,-1.55]);glass.castShadow=false;
+  // Curtains hang at the room-side opening, not on the projecting outer glazing.
+  activeParent=room;
   // Draped, slightly irregular linen, with a rolled hem rather than flat curtain planes.
   const curtains=[];
   for(let panel=0;panel<3;panel++){
@@ -73,7 +75,7 @@ export function buildRoom(scene){
     }
     for(let j=0;j<=rows;j++)for(let i=0;i<=segments;i++){const a=cloth(i/segments,j/rows);p.setXYZ(j*(segments+1)+i,...a);}
     geo.computeVertexNormals();const o=mesh(geo,M.linen);o.castShadow=false;curtains.push(o);
-    const hem=[];for(let i=0;i<=60;i++)hem.push(cloth(i/60,1));const h=line(hem,.005,M.linen,frontWindow,70);h.castShadow=false;
+    const hem=[];for(let i=0;i<=60;i++)hem.push(cloth(i/60,1));const h=line(hem,.005,M.linen,room,70);h.castShadow=false;
     for(let i=0;i<=11;i++){
       const ring=mesh(new THREE.TorusGeometry(.018,.0035,6,14),M.white,[xStart+i*width/11,2.959,-1.298]);ring.rotation.y=Math.PI/2;ring.castShadow=false;
     }
@@ -87,6 +89,13 @@ export function buildRoom(scene){
     rod([ax,bottom,az],[ax,top,az],.027,M.white);
     const pane=mesh(new THREE.PlaneGeometry(length,top-bottom),glass.material,[(ax+bx)/2,(bottom+top)/2,(az+bz)/2]);
     pane.rotation.y=-Math.atan2(dz,dx);pane.castShadow=false;
+    // Match the central grille's height and setback through both bay corners.
+    const frontEnd=bayCenter+((ax<bayCenter?-.835:2.195)-bayCenter)*frontScale;
+    const barDx=frontEnd-ax;
+    for(const y of [1.66,2.28]){
+      const bar=box(Math.hypot(barDx,dz),.018,.024,[(ax+frontEnd)/2,y,(az+bz)/2-.070],brown,.001);
+      bar.rotation.y=-Math.atan2(dz,barDx);
+    }
   }
   // Solid bay head and apron enclose the projecting window above and below.
   for(const [y,height] of [[.57,1.14],[3.75,1.8]]){
