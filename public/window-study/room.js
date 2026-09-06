@@ -6,14 +6,15 @@ import {makeMaterials,random,texture,printedPage,contactMap} from './materials.j
 const V=(x,y,z)=>new THREE.Vector3(x,y,z);
 export function buildRoom(scene){
   const M=makeMaterials(),room=new THREE.Group();room.name='Window study';scene.add(room);
-  function mesh(geo,mat,pos,parent=room){const o=new THREE.Mesh(geo,mat);if(pos)o.position.set(...pos);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;}
-  function box(w,h,d,pos,mat=M.white,r=.008,parent=room){return mesh(r?new RoundedBoxGeometry(w,h,d,3,Math.min(r,w/3,h/3,d/3)):new THREE.BoxGeometry(w,h,d),mat,pos,parent);}
-  function cylinder(rt,rb,h,pos,mat=M.white,parent=room,segments=36){return mesh(new THREE.CylinderGeometry(rt,rb,h,segments),mat,pos,parent);}
-  function ball(x,y,z,scale,mat,parent=room){const o=mesh(new THREE.SphereGeometry(1,20,14),mat,[x,y,z],parent);o.scale.set(...scale);return o;}
-  function line(points,radius,mat=M.white,parent=room,steps=28){return mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p=>Array.isArray(p)?V(...p):p)),steps,radius,7,false),mat,null,parent);}
-  function rod(a,b,r,mat=M.white,parent=room,r2=r){const av=V(...a),bv=V(...b);const o=cylinder(r2,r,av.distanceTo(bv),av.clone().add(bv).multiplyScalar(.5).toArray(),mat,parent,12);o.quaternion.setFromUnitVectors(V(0,1,0),bv.sub(av).normalize());return o;}
+  let activeParent=room;
+  function mesh(geo,mat,pos,parent=activeParent){const o=new THREE.Mesh(geo,mat);if(pos)o.position.set(...pos);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;}
+  function box(w,h,d,pos,mat=M.white,r=.008,parent=activeParent){return mesh(r?new RoundedBoxGeometry(w,h,d,3,Math.min(r,w/3,h/3,d/3)):new THREE.BoxGeometry(w,h,d),mat,pos,parent);}
+  function cylinder(rt,rb,h,pos,mat=M.white,parent=activeParent,segments=36){return mesh(new THREE.CylinderGeometry(rt,rb,h,segments),mat,pos,parent);}
+  function ball(x,y,z,scale,mat,parent=activeParent){const o=mesh(new THREE.SphereGeometry(1,20,14),mat,[x,y,z],parent);o.scale.set(...scale);return o;}
+  function line(points,radius,mat=M.white,parent=activeParent,steps=28){return mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p=>Array.isArray(p)?V(...p):p)),steps,radius,7,false),mat,null,parent);}
+  function rod(a,b,r,mat=M.white,parent=activeParent,r2=r){const av=V(...a),bv=V(...b);const o=cylinder(r2,r,av.distanceTo(bv),av.clone().add(bv).multiplyScalar(.5).toArray(),mat,parent,12);o.quaternion.setFromUnitVectors(V(0,1,0),bv.sub(av).normalize());return o;}
   const shadowTexture=contactMap();
-  function contact(x,z,w,d,opacity=.6,y=.013,parent=room){const o=mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({map:shadowTexture,transparent:true,opacity,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}),[x,y,z],parent);o.rotation.x=-Math.PI/2;o.castShadow=false;return o;}
+  function contact(x,z,w,d,opacity=.6,y=.013,parent=activeParent){const o=mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({map:shadowTexture,transparent:true,opacity,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}),[x,y,z],parent);o.rotation.x=-Math.PI/2;o.castShadow=false;return o;}
   // The reference corner, in metres; the open front keeps orbiting inside a credible room.
   const floorBack=-1.57,floorFront=15,floorDepth=floorFront-floorBack,floorCenter=(floorBack+floorFront)/2;
   box(30,.13,floorDepth,[0,-.077,floorCenter],M.floor,0);
@@ -32,9 +33,19 @@ export function buildRoom(scene){
   // Block overhead sunlight without drawing a ceiling or adding a navigation occluder.
   const ceiling=box(20.35,.14,23.46,[8.045,4.67,10.07],new THREE.MeshBasicMaterial({colorWrite:false,depthWrite:false}),0,scene);
   ceiling.name='Shadow-only ceiling';ceiling.receiveShadow=false;ceiling.raycast=()=>{};
+  // Bay sill extends outside the wall; its base angles are 60 degrees.
+  const bayDepth=.65,bayInset=bayDepth/Math.sqrt(3),bayCenter=.68;
+  const sillShape=new THREE.Shape();
+  sillShape.moveTo(-.90,0);sillShape.lineTo(2.26,0);sillShape.lineTo(2.26-bayInset,bayDepth);sillShape.lineTo(-.90+bayInset,bayDepth);sillShape.closePath();
+  const baySill=mesh(new THREE.ExtrudeGeometry(sillShape,{depth:.075,bevelEnabled:false}),M.white, [0,1.1075,-1.57]);baySill.rotation.x=-Math.PI/2;
+  // The room-side opening has only a low boundary lip, not an inner window.
   // Deep painted sill and layered uPVC frame.
-  box(3.2,.075,.43,[.70,1.145,-1.345],M.white,.012);
-  box(3.18,.045,.04,[.70,1.102,-1.134],M.wallWhite,.004);
+  box(3.2,.075,.12,[.70,1.145,-1.51],M.white,.012);
+  box(3.18,.045,.04,[.70,1.102,-1.444],M.wallWhite,.004);
+  const frontWindow=new THREE.Group();room.add(frontWindow);
+  const frontScale=(3.08-2*bayInset)/3.08;
+  frontWindow.scale.x=frontScale;frontWindow.position.set(bayCenter*(1-frontScale),0,-bayDepth);
+  activeParent=frontWindow;
   const left=-.86,right=2.22,bottom=1.19,top=2.91,z=-1.495;
   for(const x of [left,right])box(.063,top-bottom+.07,.08,[x,(top+bottom)/2,z],M.white,.004);
   for(const y of [bottom,top])box(right-left,.065,.08,[(left+right)/2,y,z],M.white,.004);
@@ -48,7 +59,7 @@ export function buildRoom(scene){
   box(.018,.10,.022,[.07,1.93,-1.442],M.metalWhite,.005);
   box(.06,.015,.025,[.093,1.925,-1.423],M.metalWhite,.004);
   // Exterior is a generated anonymous canopy; the original photo and metadata are not assets.
-  const backdrop=mesh(new THREE.PlaneGeometry(32,14),new THREE.MeshBasicMaterial({color:'#eff2e2',toneMapped:false}),[0,3,-8]);backdrop.castShadow=false;backdrop.receiveShadow=false;
+  const backdrop=mesh(new THREE.PlaneGeometry(32,14),new THREE.MeshBasicMaterial({color:'#eff2e2',toneMapped:false}),[0,3,-8],room);backdrop.castShadow=false;backdrop.receiveShadow=false;
   const landscapeReady=new THREE.TextureLoader().loadAsync(new URL('./assets/garden.webp',import.meta.url).href).then(t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=4;backdrop.material.map=t;backdrop.material.color.set(0xffffff);backdrop.material.needsUpdate=true;}).catch(e=>{console.warn('Garden texture unavailable',e);});
   const glass=mesh(new THREE.PlaneGeometry(3.0,1.63),new THREE.MeshPhysicalMaterial({color:'#eaf2ee',metalness:0,roughness:.08,transparent:true,opacity:.06,depthWrite:false,side:THREE.DoubleSide}),[.68,2.05,-1.55]);glass.castShadow=false;
   // Draped, slightly irregular linen, with a rolled hem rather than flat curtain planes.
@@ -62,12 +73,29 @@ export function buildRoom(scene){
     }
     for(let j=0;j<=rows;j++)for(let i=0;i<=segments;i++){const a=cloth(i/segments,j/rows);p.setXYZ(j*(segments+1)+i,...a);}
     geo.computeVertexNormals();const o=mesh(geo,M.linen);o.castShadow=false;curtains.push(o);
-    const hem=[];for(let i=0;i<=60;i++)hem.push(cloth(i/60,1));const h=line(hem,.005,M.linen,room,70);h.castShadow=false;
+    const hem=[];for(let i=0;i<=60;i++)hem.push(cloth(i/60,1));const h=line(hem,.005,M.linen,frontWindow,70);h.castShadow=false;
     for(let i=0;i<=11;i++){
       const ring=mesh(new THREE.TorusGeometry(.018,.0035,6,14),M.white,[xStart+i*width/11,2.959,-1.298]);ring.rotation.y=Math.PI/2;ring.castShadow=false;
     }
   }
   rod([-.94,2.982,-1.3],[2.32,2.982,-1.3],.012,M.metalWhite);
+  activeParent=room;
+  // Angled side glazing joins the wall opening to the outer front window.
+  for(const [ax,bx] of [[-.86,-.86+bayInset],[2.22,2.22-bayInset]]){
+    const az=-1.495,bz=az-bayDepth,dx=bx-ax,dz=bz-az,length=Math.hypot(dx,dz);
+    for(const y of [bottom,top])rod([ax,y,az],[bx,y,bz],.027,M.white);
+    rod([ax,bottom,az],[ax,top,az],.027,M.white);
+    const pane=mesh(new THREE.PlaneGeometry(length,top-bottom),glass.material,[(ax+bx)/2,(bottom+top)/2,(az+bz)/2]);
+    pane.rotation.y=-Math.atan2(dz,dx);pane.castShadow=false;
+  }
+  // Solid bay head and apron enclose the projecting window above and below.
+  for(const [y,height] of [[.57,1.14],[3.75,1.8]]){
+    box(3.2-2*bayInset,height,.18,[.70,y,-1.57-bayDepth],M.wallWhite,0);
+    for(const [ax,bx] of [[-.90,-.90+bayInset],[2.30,2.30-bayInset]]){
+      const side=box(Math.hypot(bayInset,bayDepth),height,.18,[(ax+bx)/2,y,-1.57-bayDepth/2],M.wallWhite,0);
+      side.rotation.y=-Math.atan2(-bayDepth,bx-ax);
+    }
+  }
   // Walnut desk: softly rounded slab, apron, drawer and tapered legs.
   const desk=new THREE.Group();desk.name='Walnut desk';room.add(desk);
   box(2.55,.057,.675,[.65,.795,-.92],M.wood,.045,desk);
@@ -81,7 +109,7 @@ export function buildRoom(scene){
   }
   contact(.65,-.90,2.9,1.3,.28);
   // The tall open shelf in the original left corner.
-  const shelf=new THREE.Group();shelf.name='Research books';shelf.position.set(-.985,0,-1.085);shelf.rotation.y=.025;room.add(shelf);
+  const shelf=new THREE.Group();shelf.name='Research books';shelf.position.set(-1.307,0,-1.085);shelf.scale.x=1.94;room.add(shelf);
   for(const x of [-.32,.32])for(const z of [-.177,.177])box(.022,1.61,.025,[x,.838,z],M.metalWhite,.004,shelf);
   for(const x of [-.32,.32])for(const y of [.16,.58,1.06,1.63])box(.024,.025,.38,[x,y,0],M.metalWhite,.003,shelf);
   for(const y of [.16,.58,1.06])box(.684,.025,.38,[0,y,0],M.wood,.008,shelf);
@@ -189,8 +217,9 @@ export function buildRoom(scene){
     cylinder(r*1.06,r*1.03,.018,[x,y-.012,z],mat);
     contact(x,z,r*2.5,r*2.5,.55,y-.018);
   }
+  const sillObjects=new THREE.Group();sillObjects.position.z=-.40;room.add(sillObjects);activeParent=sillObjects;
   const plantBase=[.75,1.21,-1.30];pot(...plantBase,.154,.236);
-  const plant=new THREE.Group();plant.name='Window plant';plant.position.set(.75,1.44,-1.30);room.add(plant);
+  const plant=new THREE.Group();plant.name='Window plant';plant.position.set(.75,1.44,-1.30);sillObjects.add(plant);
   const leafGeometry=new THREE.PlaneGeometry(1,1,8,12);const lp=leafGeometry.attributes.position;
   for(let i=0;i<lp.count;i++){
     const u=lp.getX(i)*2,v=lp.getY(i)+.5;const w=Math.pow(Math.sin(v*Math.PI),.75)*.42;
@@ -215,7 +244,7 @@ export function buildRoom(scene){
   // Two quiet accents on the sill: succulent and small ceramic bird.
   pot(1.86,1.204,-1.29,.064,.082,M.ceramic);
   for(let i=0;i<16;i++){const a=i*2.4,r=i<5?.008:.026;const o=ball(1.86+Math.cos(a)*r,1.309+(i<5?.015:0),-1.29+Math.sin(a)*r,[.010,.036,.014],M.bookColors[1]);o.rotation.set(Math.cos(a)*.7,0,Math.sin(a)*.7);}
-  const bird=new THREE.Group();bird.position.set(1.60,1.213,-1.23);room.add(bird);
+  const bird=new THREE.Group();bird.position.set(1.60,1.213,-1.23);sillObjects.add(bird);
   ball(0,.027,0,[.047,.031,.026],M.ceramic,bird);ball(-.029,.057,.003,[.022,.022,.021],M.ceramic,bird);
   const beak=mesh(new THREE.ConeGeometry(.008,.018,12),M.woodEdge,[-.052,.057,.007],bird);beak.rotation.z=Math.PI/2;
   ball(-.038,.062,.022,[.0025,.0025,.0015],M.black,bird);
@@ -226,7 +255,7 @@ export function buildRoom(scene){
   box(.19,.026,.138,[-.094,1.248,-1.296],M.bookColors[1],.003);
   // A small standing frame with an original illustration, not a family photograph.
   const portrait=new THREE.Group();portrait.name='Birthday frame';
-  portrait.position.set(1.18,1.205,-1.20);portrait.rotation.y=.12;room.add(portrait);
+  portrait.position.set(1.18,1.205,-1.20);portrait.rotation.y=.12;sillObjects.add(portrait);
   box(.19,.24,.022,[0,.12,0],M.woodEdge,.004,portrait);
   box(.166,.215,.006,[0,.12,.014],M.ceramic,.001,portrait);
   rod([0,.18,-.014],[0,.012,-.10],.006,M.woodEdge,portrait);
@@ -236,6 +265,7 @@ export function buildRoom(scene){
   });
   const portraitHit=mesh(new THREE.BoxGeometry(.25,.29,.12),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}),[0,.13,0],portrait);
   portraitHit.castShadow=false;portraitHit.receiveShadow=false;
+  activeParent=room;
   // A printed travel map lies beside the desk chair, just above the floor.
   const travelMap=mesh(new THREE.PlaneGeometry(.88,.68),new THREE.MeshStandardMaterial({color:'#ffffff',roughness:1}),[1.29,.022,-.44]);
   travelMap.name='Kyushu travel map';travelMap.rotation.set(-Math.PI/2,0,-.16);
