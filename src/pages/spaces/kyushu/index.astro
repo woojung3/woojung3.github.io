@@ -1,0 +1,817 @@
+---
+import TripMap from "../../../components/TripMap.astro";
+import { days, places } from "../../../features/trip/data";
+import type { Place } from "../../../features/trip/data";
+const mapUrl = (id: Place) => {
+  const place = places[id] as { query?: string };
+  return place.query
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.query)}`
+    : undefined;
+};
+import {
+  stays,
+  train,
+  returnTrain,
+  returnGuide,
+} from "../../../features/trip/reference";
+import "../../../features/trip/trip.css";
+---
+
+<!doctype html>
+<html lang="ko">
+  <head
+    ><meta charset="utf-8" /><meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    /><meta name="robots" content="noindex, nofollow" /><title>
+      2026 추석 가족여행 / 9.22–25
+    </title><meta name="theme-color" content="#ffffff" /></head
+  ><body>
+    <main>
+      <header class="title">
+        <h1>2026 추석 가족여행</h1><p>2026. 9.22 — 9.25</p>
+      </header>
+      <nav class="day-nav" aria-label="날짜">
+        {
+          days.map((d, i) => (
+            <button
+              type="button"
+              data-day={i}
+              aria-pressed={i === 0 ? "true" : "false"}
+            >
+              {d.label}
+              <span>{d.weekday}</span>
+            </button>
+          ))
+        }
+      </nav>
+      <section class="atlas" aria-label="장소와 이동 경로">
+        <nav class="regions" aria-label="지도 범위">
+          <button data-region="all" aria-pressed="true">이동 경로</button
+          ><button data-region="fukuoka" aria-pressed="false">하카타</button
+          ><button data-region="yufuin" aria-pressed="false">유후인</button>
+        </nav>
+        <p id="travel-direction" class="travel-direction">
+          하카타 → 유후인 · 9.22
+        </p>
+        <TripMap />
+        <p class="map-key">● 장소를 눌러 상세 보기</p>
+      </section>
+      <section
+        id="selection"
+        class="selection"
+        hidden
+        tabindex="-1"
+        aria-label="선택한 장소"
+      >
+        <header class="detail-nav">
+          <button class="close-selection" type="button">← 일정으로</button><span
+            id="detail-label"></span>
+        </header><div id="selection-body"></div>
+      </section>
+      <nav class="quick" aria-label="예약 정보">
+        <button data-detail="train-outbound">열차 · 좌석 <span>↗</span></button
+        ><button data-detail="house">유후인 숙소 <span>↗</span></button><button
+          data-detail="hotel">하카타 숙소 <span>↗</span></button
+        >
+      </nav>
+      {
+        days.map((day, i) => (
+          <section class="day" data-section={i} id={`day-${i}`}>
+            <div class="section-heading">
+              <>
+                <h2>
+                  {day.label} {day.weekday}요일
+                </h2>
+                <span>
+                  {i === 0
+                    ? "하카타 → 유후인"
+                    : i === 1
+                      ? "유후인 → 하카타"
+                      : i === 2
+                        ? "후쿠오카"
+                        : "귀국"}
+                </span>
+              </>
+            </div>
+            <ol class="schedule">
+              {day.stops.map((s) => (
+                <li>
+                  <div class="time">{s.time}</div>
+                  <div>
+                    <h3>{s.title}</h3>
+                    <p>{s.detail}</p>
+                    {s.id === "outbound" && (
+                      <button class="text-link" data-detail="train-outbound">
+                        {train.name} · 시간과 좌석 →
+                      </button>
+                    )}
+                    {s.id === "return" && (
+                      <button class="text-link" data-detail="train-return">
+                        {returnTrain.name} · 시간과 좌석 →
+                      </button>
+                    )}
+                    {s.place &&
+                      (s.place === "house" || s.place === "hotel" ? (
+                        <button class="text-link" data-detail={s.place}>
+                          {places[s.place].name} · 숙소 안내 →
+                        </button>
+                      ) : (
+                        <a
+                          class="text-link"
+                          href={mapUrl(s.place)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span aria-hidden="true">🗺️</span>{" "}
+                          {places[s.place].name} · 지도 보기 ↗
+                        </a>
+                      ))}
+                    {s.note && s.id !== "outbound" && (
+                      <details>
+                        <summary>참고사항</summary>
+                        <p>{s.note}</p>
+                      </details>
+                    )}
+                  </div>
+                  {s.photo && (
+                    <figure class="stop-photo">
+                      <a
+                        href={s.photo.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${s.photo.caption} 사진 크게 보기 (새 탭)`}
+                      >
+                        <img
+                          src={s.photo.src}
+                          alt={s.photo.alt}
+                          width={s.photo.width ?? 1000}
+                          height={
+                            s.photo.height ??
+                            (s.photo.src.includes("marine") ||
+                            s.photo.src.includes("yufuin")
+                              ? 750
+                              : 665)
+                          }
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span class="photo-expand">사진 크게 보기 ↗</span>
+                      </a>
+                      <figcaption>{s.photo.caption}</figcaption>
+                    </figure>
+                  )}
+                </li>
+              ))}
+            </ol>
+            {day.stay && (
+              <button class="night-stay" data-detail={day.stay}>
+                <span>숙소</span>
+                <strong>{stays.find((s) => s.id === day.stay)?.name}</strong>
+                <span>→</span>
+              </button>
+            )}
+            {day.caution && (
+              <details class="day-note">
+                <summary>주의사항</summary>
+                <p>{day.caution}</p>
+              </details>
+            )}
+          </section>
+        ))
+      }
+      <footer class="photo-credits-footer">
+        <button type="button" data-detail="credits">Credits</button>
+      </footer>
+    </main>
+    <template id="detail-credits"
+      ><h2>Photo credits</h2>
+      {
+        days
+          .flatMap((day) => day.stops)
+          .filter((stop) => stop.photo)
+          .map((stop) => (
+            <section class="credit-entry">
+              <>
+                <h3>{stop.photo!.caption}</h3>
+                <p>{stop.photo!.author}</p>
+                <p>
+                  <a
+                    href={stop.photo!.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Wikimedia Commons 원본 ↗
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href={stop.photo!.license}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {stop.photo!.licenseName ??
+                      (stop.photo!.license.includes("/3.0")
+                        ? "CC BY-SA 3.0"
+                        : "CC BY-SA 4.0")}{" "}
+                    ↗
+                  </a>
+                </p>
+                <p>
+                  원본 비율 유지 · 크기 축소 · WebP 변환. 변환본에도 동일한
+                  라이선스를 적용합니다.
+                </p>
+              </>
+            </section>
+          ))
+      }
+    </template>
+    <template id="detail-train-outbound"
+      ><h2>하카타 → 유후인</h2><p class="detail-sub">
+        9.22 화요일 · {train.name}
+      </p><div class="departure">
+        <div><strong>{train.departure}</strong><span>하카타</span></div><span
+          >→</span
+        ><div><strong>{train.arrival}</strong><span>유후인</span></div>
+      </div><p>{train.duration} · 예매 완료</p>
+      <details class="infographic">
+        <summary>가는 편 인포그래픽 보기</summary><a
+          href="/spaces/kyushu/outbound-guide.png"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img
+            src="/spaces/kyushu/outbound-guide.png"
+            alt="유후인노모리 3호: 1호차 8ABCD·9CD, 호차별 시설과 차내 풍경 안내"
+            width="1055"
+            height="1491"
+            loading="lazy"
+          /><span>원본 크게 보기 ↗</span></a
+        ><p>풍경 시각은 운행 상황에 따라 달라질 수 있습니다.</p>
+      </details>
+      <h3>1호차 · 6명</h3><div class="seat-map">
+        <p>↑ 유후인 방향</p><div class="seat-head">
+          <span>왼쪽 창가</span><span>오른쪽 창가</span>
+        </div>{
+          [8, 9].map((row) => (
+            <div class="seat-row">
+              {["A", "B", "C", "D"].map((col) => (
+                <span
+                  class:list={[
+                    "seat",
+                    { occupied: train.seats.includes(`${row}${col}`) },
+                  ]}
+                >
+                  {row}
+                  {col}
+                </span>
+              ))}
+            </div>
+          ))
+        }<p class="seat-legend">검은 좌석: 일행 · 가운데: 통로</p>
+      </div><p>
+        <strong>창가: 8A · 8D · 9D</strong><br />11:45 좌석 복귀. 이후 주요
+        풍경은 오른쪽.
+      </p><details>
+        <summary>호차별 시설</summary><dl>
+          {
+            train.facilities.map(([a, b]) => (
+              <>
+                <>
+                  <dt>{a}</dt>
+                  <dd>{b}</dd>
+                </>
+              </>
+            ))
+          }
+        </dl><p>
+          1호차 → 2호차 뷔페 → 3호차 살롱 → 좌석 복귀. 2–3명씩 나눠 이동합니다.
+        </p>
+      </details><details>
+        <summary>차내 일정 · 풍경</summary><ol class="scenery">
+          {
+            train.views.map(([time, what, side]) => (
+              <li>
+                <>
+                  <strong>{time}</strong>
+                  <span>
+                    {what}
+                    {side && <small>{side}</small>}
+                  </span>
+                </>
+              </li>
+            ))
+          }
+        </ol><p>
+          풍경 시각은 참고용입니다. 차내 방송에 맞춰 창밖을 보세요. 기념승차증은
+          뷔페에서 받을 수 있습니다.
+        </p>
+      </details></template
+    >
+    <template id="detail-train-return">
+      <h2>유후인 → 하카타</h2><p class="detail-sub">
+        {returnTrain.date} · {returnTrain.name}
+      </p>
+      <div class="departure">
+        <div>
+          <strong>{returnTrain.departure}</strong><span>유후인</span>
+        </div><span>→</span><div>
+          <strong>{returnTrain.arrival}</strong><span>하카타</span>
+        </div>
+      </div>
+      <p>{returnTrain.duration} · 예매 완료 · 지정석 금연</p>
+      <h3>{returnTrain.car}호차 · 6명</h3>
+      <div class="seat-map">
+        <p>4호차 8ABCD · 9AB</p>
+        <div class="seat-head"><span>A쪽 창가</span><span>D쪽 창가</span></div>
+        {
+          [8, 9].map((row) => (
+            <div class="seat-row">
+              {["A", "B", "C", "D"].map((col) => (
+                <span
+                  class:list={[
+                    "seat",
+                    { occupied: returnTrain.seats.includes(`${row}${col}`) },
+                  ]}
+                >
+                  {row}
+                  {col}
+                </span>
+              ))}
+            </div>
+          ))
+        }
+        <p class="seat-legend">검은 좌석: 일행 · 가운데: 통로</p>
+      </div>
+      <p><strong>창가: 8A · 8D · 9A</strong></p>
+      <h3>QR 티켓으로 탑승</h3>
+      <p>
+        개찰구에 들어가기 전, JR큐슈 예약 화면에서 ‘전원의 티켓 표시’를 열어
+        준비합니다.
+      </p>
+      <details>
+        <summary>인원 · 운임</summary><dl>
+          <dt>성인</dt><dd>
+            {returnTrain.adults}명 · 1인 {returnTrain.adultFare}
+          </dd><dt>어린이</dt><dd>
+            {returnTrain.children}명 · 1인 {returnTrain.childFare}
+          </dd><dt>합계</dt><dd>{returnTrain.total}</dd><dt>승차권</dt><dd>
+            규슈 넷 킷푸 · 승차권 + 지정석 특급권
+          </dd>
+        </dl><p>지정 열차 출발 후에는 지정석 특급권 환불이 불가합니다.</p>
+      </details>
+      <h3>3세대 · 5량 편성</h3>
+      <p>
+        <strong>뷔페는 3호차, 일행 좌석은 4호차.</strong><br />주요 풍경은
+        하카타행 진행 방향 왼쪽입니다.
+      </p>
+      <details>
+        <summary>호차별 시설 · 이동</summary><dl>
+          {
+            returnGuide.facilities.map(([car, info]) => (
+              <>
+                <>
+                  <dt>{car}</dt>
+                  <dd>{info}</dd>
+                </>
+              </>
+            ))
+          }
+        </dl><p>
+          4호차 좌석 ↔ 3호차 뷔페. 출입구에 계단이 있고 통로 폭은 약 550mm로
+          좁습니다. 일행이 나누어 이동하는 편이 좋습니다.
+        </p>
+      </details>
+      <details>
+        <summary>정차역 · 시간</summary><dl>
+          {
+            returnGuide.timetable.map(([time, station]) => (
+              <>
+                <>
+                  <dt>{time}</dt>
+                  <dd>{station}</dd>
+                </>
+              </>
+            ))
+          }
+        </dl><p>
+          중간역은 출발 시각입니다. 운행 변경 시 역·차내 안내를 따르세요.
+        </p>
+      </details>
+      <details>
+        <summary>구간별 풍경 · 보는 방향</summary><ol class="scenery">
+          {
+            returnGuide.scenery.map(([section, sight, side]) => (
+              <li>
+                <>
+                  <strong>{section}</strong>
+                  <span>
+                    {sight}
+                    <small>{side}</small>
+                  </span>
+                </>
+              </li>
+            ))
+          }
+        </ol><p>
+          좌우는 하카타행 진행 방향 기준입니다. 좌석 그림은 진행 방향을 표시하지
+          않습니다.
+        </p>
+      </details>
+      <details>
+        <summary>뷔페 · 먹거리 · 기념품</summary><p>
+          3호차 뷔페에서 음료·간식·기념품을 판매합니다. 3세대 차량에는 카트
+          판매도 있습니다.
+        </p><p>
+          커피·유자 음료·유후인 사이다·치즈케이크·아이스크림 등을 판매합니다.
+          일부 상품은 품절될 수 있습니다.
+        </p><p>
+          유후인노모리 도시락·유후인 와파·오이타 와규 도시락은 사전 예약
+          상품입니다. 승차 1개월 전부터 3영업일 전까지 예약하며 토·일·공휴일은
+          영업일에서 제외됩니다. 수령 시 뷔페에 예약 완료 이메일을 제시합니다. <a
+            href="https://www.jrkyushu.co.jp/english/train/bento_reserve.html"
+            target="_blank"
+            rel="noopener noreferrer">도시락 예약 안내 ↗</a
+          >
+        </p><p>
+          뷔페에서 기념승차증과 스탬프를 챙길 수 있습니다. 어린이 제복·포토패널
+          촬영은 승무원에게 문의하세요.
+        </p>
+      </details>
+      <details>
+        <summary>추천 차내 일정</summary><dl>
+          <dt>출발 후</dt><dd>짐 정리 · 유후인 풍경 감상</dd><dt>
+            12:32 전후
+          </dt><dd>분고모리부터 아마가세까지 왼쪽 풍경 감상</dd><dt>
+            히타 이후
+          </dt><dd>요아케댐을 본 뒤 2–3명씩 뷔페 방문</dd><dt>13:46 이후</dt><dd
+          >
+            좌석 복귀 · 하차 준비
+          </dd><dt>14:19</dt><dd>하카타 도착 · 호텔 짐 보관</dd>
+        </dl>
+      </details>
+      <details>
+        <summary>탑승 전 참고</summary><p>
+          숙소 체크아웃은 10:00까지입니다. 아점 식사 후 12:01 출발에 맞춰 역으로
+          이동합니다.
+        </p><p>유후인역 족욕은 공사로 이용할 수 없습니다.</p>
+      </details>
+    </template>
+    {
+      stays.map((stay) => (
+        <template id={`detail-${stay.id}`}>
+          <>
+            <h2>{stay.name}</h2>
+            <p class="detail-sub">{stay.dates}</p>
+            <dl>
+              {stay.facts.map(([a, b]) => (
+                <>
+                  <dt>{a}</dt>
+                  <dd>{b}</dd>
+                </>
+              ))}
+            </dl>
+            <p class="address">{stay.address}</p>
+            <a
+              class="external"
+              href={stay.map}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span aria-hidden="true">🗺️</span> 지도에서 열기 ↗
+            </a>
+            <details>
+              <>
+                <summary>이용 안내</summary>
+                <p>{stay.note}</p>
+              </>
+              {stay.sources?.map(([name, url]) => (
+                <p>
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {name} ↗
+                  </a>
+                </p>
+              ))}
+            </details>
+          </>
+        </template>
+      ))
+    }
+    <script>
+      import { places } from "../../../features/trip/data";
+      const panel = document.querySelector<HTMLElement>("#selection")!;
+      const body = document.querySelector<HTMLElement>("#selection-body")!;
+      let trigger: HTMLElement | null = null;
+      let currentDay = 0;
+      let currentRegion = "all";
+      let originScroll = 0;
+      let originLabel = "일정으로";
+      history.scrollRestoration = "manual";
+      const background = [...document.querySelector("main")!.children].filter(
+        (el) => el !== panel,
+      ) as HTMLElement[];
+      function lock(open: boolean) {
+        background.forEach((el) => {
+          el.inert = open;
+        });
+        document.body.classList.toggle("detail-open", open);
+      }
+      function baseState() {
+        return {
+          tripBase: true,
+          day: currentDay,
+          region: currentRegion,
+          scroll: originScroll,
+        };
+      }
+
+      function region(name: string) {
+        currentRegion = name;
+        document
+          .querySelectorAll<HTMLElement>("[data-map]")
+          .forEach((m) => (m.hidden = m.dataset.map !== name));
+        document
+          .querySelectorAll(".regions button")
+          .forEach((b) =>
+            b.setAttribute(
+              "aria-pressed",
+              String((b as HTMLElement).dataset.region === name),
+            ),
+          );
+      }
+      function show(id: string, source: HTMLElement | null, push = true) {
+        if (push) {
+          trigger = source;
+          originScroll = window.scrollY;
+          originLabel = source?.closest(".atlas") ? "지도로" : "일정으로";
+        }
+        body.replaceChildren();
+        const tpl = document.querySelector<HTMLTemplateElement>(
+          "#detail-" + id,
+        );
+        if (tpl) body.append(tpl.content.cloneNode(true));
+        else {
+          const p = places[id as keyof typeof places] as
+            { name: string; query?: string; note?: string } | undefined;
+          if (!p) return;
+          const h = document.createElement("h2");
+          h.textContent = p.name;
+          body.append(h);
+          if (p.note) {
+            const note = document.createElement("p");
+            note.textContent = p.note;
+            body.append(note);
+          }
+          if (p.query) {
+            const a = document.createElement("a");
+            a.href =
+              "https://www.google.com/maps/search/?api=1&query=" +
+              encodeURIComponent(p.query);
+            const mapIcon = document.createElement("span");
+            mapIcon.setAttribute("aria-hidden", "true");
+            mapIcon.textContent = "🗺️";
+            a.append(mapIcon, " 지도에서 열기 ↗");
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            a.className = "external";
+            body.append(a);
+          }
+          const note = document.createElement("p");
+          note.textContent = "지도에서 위치와 이동 경로를 확인할 수 있습니다.";
+          body.append(note);
+        }
+        if (push) {
+          history.replaceState(baseState(), "", location.pathname);
+          history.pushState(
+            { ...baseState(), tripDetail: id, label: originLabel },
+            "",
+            `${location.pathname}?detail=${encodeURIComponent(id)}`,
+          );
+        }
+        panel.hidden = false;
+        lock(true);
+        panel.scrollTop = 0;
+        document.querySelector(".close-selection")!.textContent =
+          `← ${originLabel}`;
+        document.querySelector("#detail-label")!.textContent = id.startsWith(
+          "train-",
+        )
+          ? id === "train-return"
+            ? "오는 열차"
+            : "가는 열차"
+          : id === "credits"
+            ? "Credits"
+            : id === "house" || id === "hotel"
+              ? "숙소"
+              : "장소";
+        document
+          .querySelectorAll("[data-place],[data-detail]")
+          .forEach((n) =>
+            n.classList.toggle(
+              "selected",
+              (n as HTMLElement).dataset.place === id ||
+                (n as HTMLElement).dataset.detail === id,
+            ),
+          );
+        (document.querySelector(".close-selection") as HTMLElement).focus({
+          preventScroll: true,
+        });
+      }
+      document.addEventListener("click", (event) => {
+        const button = (event.target as Element).closest<HTMLElement>(
+          "[data-region],[data-place],[data-detail]",
+        );
+        if (!button) return;
+        event.preventDefault();
+        if (button.dataset.region) region(button.dataset.region);
+        else show(button.dataset.place ?? button.dataset.detail!, button);
+      });
+      function restore() {
+        panel.hidden = true;
+        lock(false);
+        document
+          .querySelectorAll(".selected")
+          .forEach((e) => e.classList.remove("selected"));
+        window.scrollTo(0, originScroll);
+        trigger?.focus({ preventScroll: true });
+        trigger?.classList.add("returned");
+        const previous = trigger;
+        setTimeout(() => previous?.classList.remove("returned"), 1200);
+      }
+      function close() {
+        if (history.state?.tripDetail) history.back();
+        else {
+          history.replaceState(baseState(), "", location.pathname);
+          restore();
+        }
+      }
+      window.addEventListener("popstate", () => {
+        const state = history.state;
+        if (state?.day != null) {
+          day(state.day);
+          region(state.region);
+          originScroll = state.scroll ?? 0;
+        }
+        const id = new URLSearchParams(location.search).get("detail");
+        if (id) {
+          originLabel = state?.label ?? "일정으로";
+          show(id, null, false);
+        } else restore();
+      });
+      document
+        .querySelector(".close-selection")
+        ?.addEventListener("click", close);
+      panel.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") close();
+      });
+      const sections = [
+        ...document.querySelectorAll<HTMLElement>("[data-section]"),
+      ];
+      function day(index: number) {
+        currentDay = index;
+        const travel = index < 2;
+        document
+          .querySelectorAll<HTMLElement>(".regions [data-region]")
+          .forEach((button) => {
+            button.hidden = !travel && button.dataset.region !== "fukuoka";
+          });
+        const direction =
+          document.querySelector<HTMLElement>("#travel-direction")!;
+        direction.hidden = !travel;
+        const routeButton = document.querySelector(".painted-route")!;
+        routeButton.replaceChildren(
+          document.createTextNode(
+            index === 1 ? "유후인 → 하카타 " : "하카타 → 유후인 ",
+          ),
+        );
+        const routeCaption = document.createElement("span");
+        routeCaption.textContent = "열차 · 좌석";
+        routeButton.append(routeCaption);
+        direction.textContent =
+          index === 0 ? "하카타 → 유후인 · 9.22" : "유후인 → 하카타 · 9.23";
+        const trainId = index === 1 ? "train-return" : "train-outbound";
+        document
+          .querySelectorAll<HTMLElement>(
+            '.atlas [data-detail^="train-"], .quick [data-detail^="train-"]',
+          )
+          .forEach((button) => {
+            button.dataset.detail = trainId;
+            button.hidden = !travel;
+            button.setAttribute(
+              "aria-label",
+              index === 1
+                ? "유후인 하카타 돌아오는 열차 · 좌석"
+                : "하카타 유후인 가는 열차 · 좌석",
+            );
+          });
+        document.querySelector<HTMLElement>(
+          '.quick [data-detail="house"]',
+        )!.hidden = !travel;
+        region(travel ? "all" : "fukuoka");
+        sections.forEach((s, i) => (s.hidden = i !== index));
+        document
+          .querySelectorAll("[data-day]")
+          .forEach((b, i) =>
+            b.setAttribute("aria-pressed", String(i === index)),
+          );
+        document
+          .querySelector(".atlas")
+          ?.setAttribute("data-active-day", String(index));
+        const active = [
+          ["hakata", "yufuin", "house"],
+          ["house", "yufuin", "hakata", "hotel", "dazaifu", "hotel"],
+          ["hotel", "aquarium", "museum", "hotel"],
+          ["hotel", "airport"],
+        ][index];
+        document.querySelectorAll<HTMLElement>(".city-pin").forEach((pin) => {
+          const positions = active.flatMap((id, i) =>
+            id === pin.dataset.place ? [i + 1] : [],
+          );
+          pin.classList.toggle("on-route", positions.length > 0);
+          pin.querySelector(".visit-order")?.remove();
+          if (positions.length) {
+            const badge = document.createElement("b");
+            badge.className = "visit-order";
+            badge.textContent = positions.join("·");
+            badge.setAttribute(
+              "aria-label",
+              `방문 순서 ${positions.join(", ")}`,
+            );
+            pin.append(badge);
+          }
+        });
+        const ns = "http://www.w3.org/2000/svg";
+        document.querySelectorAll<HTMLElement>(".local-map").forEach((map) => {
+          map.querySelector(".daily-route")?.remove();
+          const svg = map.querySelector("svg")!;
+          const group = document.createElementNS(ns, "g");
+          group.classList.add("daily-route");
+          group.setAttribute("aria-hidden", "true");
+          const local = active
+            .map((id) =>
+              map.querySelector<HTMLElement>(`.city-pin[data-place="${id}"]`),
+            )
+            .filter((pin): pin is HTMLElement => !!pin);
+          for (let i = 1; i < local.length; i++) {
+            const x1 = parseFloat(local[i - 1].style.left) * 4;
+            const y1 = parseFloat(local[i - 1].style.top) * 4.2;
+            const x2 = parseFloat(local[i].style.left) * 4;
+            const y2 = parseFloat(local[i].style.top) * 4.2;
+            const line = document.createElementNS(ns, "path");
+            line.setAttribute("d", `M${x1} ${y1} L${x2} ${y2}`);
+            group.append(line);
+            const arrow = document.createElementNS(ns, "path");
+            arrow.setAttribute("d", "M-6 -5 L2 0 L-6 5");
+            arrow.setAttribute(
+              "transform",
+              `translate(${(x1 + x2) / 2} ${(y1 + y2) / 2}) rotate(${(Math.atan2(y2 - y1, x2 - x1) * 180) / Math.PI})`,
+            );
+            arrow.classList.add("route-arrow");
+            group.append(arrow);
+          }
+          svg.append(group);
+        });
+        panel.hidden = true;
+      }
+      document
+        .querySelectorAll<HTMLElement>("[data-day]")
+        .forEach((b) =>
+          b.addEventListener("click", () => day(Number(b.dataset.day))),
+        );
+      const motionButton =
+        document.querySelector<HTMLButtonElement>(".train-motion")!;
+      const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+      function motionPreference() {
+        document
+          .querySelector(".world-map")!
+          .classList.remove("motion-enabled");
+        motionButton.hidden = !reducedMotion.matches;
+        motionButton.textContent = "기차 움직이기";
+        motionButton.setAttribute("aria-pressed", "false");
+      }
+      motionPreference();
+      reducedMotion.addEventListener("change", motionPreference);
+      motionButton.addEventListener("click", () => {
+        const enabled = document
+          .querySelector(".world-map")!
+          .classList.toggle("motion-enabled");
+        motionButton.textContent = enabled ? "기차 멈추기" : "기차 움직이기";
+        motionButton.setAttribute("aria-pressed", String(enabled));
+      });
+      const initialDetail = new URLSearchParams(location.search).get("detail");
+      // Restore context for a detail reload, not for a fresh itinerary load.
+      day(
+        initialDetail
+          ? (history.state?.day ?? (initialDetail === "train-return" ? 1 : 0))
+          : 0,
+      );
+      if (initialDetail && history.state?.region) region(history.state.region);
+      if (!initialDetail)
+        history.replaceState(baseState(), "", location.pathname);
+      if (initialDetail) {
+        originScroll = history.state?.scroll ?? 0;
+        originLabel = history.state?.label ?? "일정으로";
+        show(initialDetail, null, false);
+      }
+    </script>
+  </body>
+</html>

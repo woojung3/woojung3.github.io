@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+<rect width="900" height="700" fill="#eee7d2"/><rect x="26" y="26" width="848" height="648" fill="#c5d9d7" stroke="#68796c" stroke-width="3"/>
+<path d="M0 230H900M0 470H900M300 0V700M600 0V700" stroke="#fff" opacity=".25" stroke-width="3"/>
+<path d="M398 138L455 111 502 143 522 180 563 190 602 172 632 201 616 245 651 273 669 321 636 367 637 423 596 460 578 515 543 561 526 603 506 578 510 531 480 505 468 545 438 579 414 564 429 515 408 467 395 420 367 389 384 354 352 333 324 358 301 352 311 321 283 299 302 277 273 249 295 232 320 256 343 231 330 204 367 197 376 165Z" fill="#859972" stroke="#566b53" stroke-width="4" stroke-linejoin="round"/>
+<path d="M357 375L331 393 338 420 359 427 376 406ZM331 434L314 450 327 470 343 447Z" fill="#859972" stroke="#566b53" stroke-width="3"/>
+<path d="M414 185Q469 215 544 264" fill="none" stroke="#b77443" stroke-width="7" stroke-dasharray="12 8"/>
+<g fill="#f8f2df" stroke="#9b5637" stroke-width="5"><circle cx="414" cy="185" r="10"/><circle cx="544" cy="264" r="10"/></g>
+<g font-family="Georgia,serif" fill="#293e36"><text x="70" y="104" font-size="48" letter-spacing="7">KYUSHU</text><text x="70" y="144" font-size="22" letter-spacing="3">2026 · SEPTEMBER</text><text x="400" y="163" font-size="25">Fukuoka</text><text x="566" y="267" font-size="25">Yufuin</text><text x="70" y="627" font-size="22" letter-spacing="3">FAMILY TRIP</text></g>
+<path d="M791 526V603M770 552L791 526 812 552" fill="none" stroke="#566b53" stroke-width="3"/><text x="782" y="512" font-family="Georgia,serif" font-size="25" fill="#566b53">N</text>
+<path d="M300 26V674M600 26V674" stroke="#555" opacity=".10" stroke-width="5"/>
+</svg>

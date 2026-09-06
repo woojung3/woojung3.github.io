@@ -232,5 +232,13 @@ export function buildRoom(scene){
   });
   const portraitHit=mesh(new THREE.BoxGeometry(.25,.29,.12),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}),[0,.13,0],portrait);
   portraitHit.castShadow=false;portraitHit.receiveShadow=false;
-  return {room,M,curtains,plant,landscapeReady,portraitReady,portraitHit,lampLight,lampGlow,bulbMaterial,backdrop};
+  // A printed travel map lies beside the desk chair, just above the floor.
+  const travelMap=mesh(new THREE.PlaneGeometry(.88,.68),new THREE.MeshStandardMaterial({color:'#ffffff',roughness:1}),[1.29,.022,-.44]);
+  travelMap.name='Kyushu travel map';travelMap.rotation.set(-Math.PI/2,0,-.16);
+  travelMap.userData.href='/spaces/kyushu/';
+  const mapReady=new THREE.TextureLoader().loadAsync(new URL('./assets/kyushu-map.svg',import.meta.url).href).then(texture=>{
+    texture.colorSpace=THREE.SRGBColorSpace;travelMap.material.map=texture;travelMap.material.needsUpdate=true;
+  });
+  portraitHit.userData.href='/spaces/juha/index.html';
+  return {room,M,curtains,plant,landscapeReady,portraitReady,mapReady,portraitHit,travelMap,lampLight,lampGlow,bulbMaterial,backdrop};
 }

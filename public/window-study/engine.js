@@ -105,10 +105,10 @@ function frame(now){
   if(transition||changed||adjusting)invalidate();
 }
 const raycaster=new THREE.Raycaster();
-function hitPortrait(event){
+function hitLink(event){
   const rect=renderer.domElement.getBoundingClientRect();
   raycaster.setFromCamera(new THREE.Vector2((event.clientX-rect.left)/rect.width*2-1,-(event.clientY-rect.top)/rect.height*2+1),camera);
-  return raycaster.intersectObjects([world.room],true)[0]?.object===world.portraitHit;
+  return raycaster.intersectObjects([world.room],true)[0]?.object.userData.href;
 }
 let press=null;
 renderer.domElement.addEventListener('pointerdown',event=>{
@@ -117,12 +117,13 @@ renderer.domElement.addEventListener('pointerdown',event=>{
 });
 renderer.domElement.addEventListener('pointermove',event=>{
   if(press&&Math.hypot(event.clientX-press.x,event.clientY-press.y)>6)press=null;
-  if(event.pointerType==='mouse')renderer.domElement.style.cursor=hitPortrait(event)?'pointer':'grab';
+  if(event.pointerType==='mouse')renderer.domElement.style.cursor=hitLink(event)?'pointer':'grab';
 });
 renderer.domElement.addEventListener('pointercancel',()=>{press=null;});
 renderer.domElement.addEventListener('pointerup',event=>{
   const click=press;press=null;
-  if(click?.id===event.pointerId&&Math.hypot(event.clientX-click.x,event.clientY-click.y)<=6&&hitPortrait(event))window.location.assign('/spaces/juha/index.html');
+  const href=hitLink(event);
+  if(click?.id===event.pointerId&&Math.hypot(event.clientX-click.x,event.clientY-click.y)<=6&&href)window.location.assign(href);
 });
 controls.addEventListener('change',invalidate);
 controls.addEventListener('start',()=>{transition=null;});
@@ -171,7 +172,7 @@ function dispose(){
 window.addEventListener('pagehide',e=>{if(!e.persisted)dispose();},{signal:lifetime.signal});
 
 goToView('room',true);
-Promise.all([world.landscapeReady,world.portraitReady]).then(()=>{
+Promise.all([world.landscapeReady,world.portraitReady,world.mapReady]).then(()=>{
   if(disposed){world.backdrop.material.map?.dispose();return;}
   renderer.shadowMap.needsUpdate=true;composer.render();
   ui.host.dispatchEvent(new CustomEvent('study-ready',{bubbles:true,composed:true}));

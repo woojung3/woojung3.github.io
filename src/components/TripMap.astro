@@ -1,0 +1,412 @@
+---
+const forests = Array.from({ length: 32 }, (_, i) => ({
+  x: 18 + ((i * 67) % 352),
+  y: 165 + ((i * 43) % 200),
+  s: 0.6 + (i % 4) * 0.12,
+}));
+const route =
+  "M85 134 C72 180 63 214 91 258 S167 318 202 283 S239 231 276 247 S307 262 324 204";
+---
+
+<svg width="0" height="0" class="map-defs" aria-hidden="true"
+  ><defs>
+    <pattern id="paper-grain" width="9" height="9" patternUnits="userSpaceOnUse"
+      ><circle cx="2" cy="3" r=".6" fill="#63583b" opacity=".08"
+      ></circle><circle cx="7" cy="8" r=".45" fill="#fff" opacity=".45"
+      ></circle></pattern
+    >
+    <linearGradient id="map-water" x2="0" y2="1"
+      ><stop stop-color="#9ecbc6"></stop><stop offset="1" stop-color="#d4e4d1"
+      ></stop></linearGradient
+    >
+    <linearGradient id="map-earth" x2="0" y2="1"
+      ><stop stop-color="#e9e7c9"></stop><stop offset="1" stop-color="#c9d4aa"
+      ></stop></linearGradient
+    >
+    <symbol id="map-tree" viewBox="0 0 24 38"
+      ><path d="M12 37V20" stroke="#796c48" stroke-width="2"></path><path
+        d="M12 1 3 17h4L0 28q12 7 24 0l-7-11h4Z"
+        fill="#63866b"></path><path
+        d="m12 3-1 29q-6-1-10-4l7-12H4Z"
+        fill="#87a27c"></path></symbol
+    >
+    <symbol id="map-mountain" viewBox="0 0 100 80"
+      ><path d="m0 75 24-39 13 7L60 4l40 70q-40 12-100 1" fill="#94aa82"
+      ></path><path d="m60 4-6 33 16 16 4 24 26-3Z" fill="#718f78"></path><path
+        d="m42 34 18-30 15 27-12-6-6 8-7-5Z"
+        fill="#e7e9d3"></path><path
+        d="m21 42 16 1-9 28"
+        fill="none"
+        stroke="#b4c39a"
+        stroke-width="2"></path></symbol
+    >
+    <symbol id="map-house" viewBox="0 0 64 62"
+      ><ellipse cx="32" cy="55" rx="29" ry="6" fill="#61795b" opacity=".17"
+      ></ellipse><path d="M10 26h42v27H10Z" fill="#f1e5c8" stroke="#8a8264"
+      ></path><path d="m4 27 17-19h30l10 19Z" fill="#997d60"></path><path
+        d="m21 8 10 19H4Z"
+        fill="#b29470"></path><path d="M29 36h10v17H29" fill="#6f897c"
+      ></path><path d="M15 33h8v9h-8m30-9h-5v9h5" fill="#aec9bb"></path><path
+        d="M19 33v9m-4-5h8"
+        stroke="#fff8df"></path></symbol
+    >
+    <symbol id="map-station" viewBox="0 0 76 64"
+      ><ellipse cx="38" cy="58" rx="35" ry="5" fill="#61795b" opacity=".18"
+      ></ellipse><path d="M8 27h60v28H8Z" fill="#e8dfc1" stroke="#918365"
+      ></path><path d="m2 28 12-14h48l12 14Z" fill="#557c6d"></path><path
+        d="M29 20V5h18v15"
+        fill="#f0e8ce"
+        stroke="#918365"></path><circle cx="38" cy="12" r="4" fill="#fffbea"
+      ></circle><path d="M38 9v3h3" fill="none" stroke="#665e4d"></path><path
+        d="M29 36h18v19H29m-15-19h9v11h-9m39-11h9v11h-9"
+        fill="#769c94"></path></symbol
+    >
+    <symbol id="map-hotel" viewBox="0 0 62 74"
+      ><ellipse cx="31" cy="68" rx="30" ry="5" fill="#61795b" opacity=".18"
+      ></ellipse><path d="M11 12h40v53H11Z" fill="#eee7d1" stroke="#94876e"
+      ></path><path d="M8 9h46v7H8Z" fill="#718979"></path><path
+        d="M26 51h12v14H26"
+        fill="#6e8c86"></path>{
+        [22, 34].map((y) => (
+          <>
+            {[17, 29, 41].map((x) => (
+              <rect x={x} y={y} width="6" height="7" fill="#9bb9ad" />
+            ))}
+          </>
+        ))
+      }</symbol
+    >
+    <symbol id="map-shrine" viewBox="0 0 74 66"
+      ><use href="#map-house" x="10" y="0" width="52" height="51"></use><path
+        d="M13 34v29m48-29v29M7 33h60M12 44h50"
+        stroke="#ad6450"
+        stroke-width="5"></path><path
+        d="M5 29q32 8 64 0"
+        fill="none"
+        stroke="#675d4b"
+        stroke-width="5"></path></symbol
+    >
+    <symbol id="map-aquarium" viewBox="0 0 80 64"
+      ><path d="M7 51V29Q40-1 73 29v22Z" fill="#dce8df" stroke="#749a93"
+      ></path><path d="M16 49V30q24-22 48 0v19Z" fill="#7fb3b3"></path><path
+        d="m24 29q12-14 27-1l9-4-4 10-8-3q-12 5-24-2"
+        fill="#e9f0db"></path><path
+        d="M3 54h74"
+        stroke="#adbb9b"
+        stroke-width="5"></path></symbol
+    >
+    <symbol id="map-museum" viewBox="0 0 70 64"
+      ><use href="#map-house" width="70" height="64"></use><path
+        d="M15 17V4l10 5-10 5m34 3V4l10 5-10 5"
+        fill="#c4875c"
+        stroke="#947555"></path><circle cx="35" cy="32" r="7" fill="#d8a477"
+      ></circle></symbol
+    >
+    <symbol id="map-plane" viewBox="0 0 70 60"
+      ><path
+        d="m31 4 8 0 3 20 23 16-1 6-24-9-1 14 8 6H23l8-6-1-14-24 9-1-6 23-16Z"
+        fill="#f7f4dd"
+        stroke="#78968d"
+        stroke-width="1.4"></path></symbol
+    >
+    <symbol id="forest-train" viewBox="-45 -14 100 28"
+      ><g stroke="#284f40" stroke-width="1"
+        ><rect x="-44" y="-10" width="25" height="20" rx="4" fill="#386448"
+        ></rect><rect
+          x="-16"
+          y="-10"
+          width="25"
+          height="20"
+          rx="4"
+          fill="#386448"></rect><path
+          d="M16-10h23q13 1 14 10-1 9-14 10H16Z"
+          fill="#416f4e"></path><path
+          d="M-42 5H7m11 0h30"
+          stroke="#d2b56b"
+          stroke-width="2"></path><path
+          d="M-39-6h16v7h-16m12-7h7m8 0h16v7h-16m29-7h16v7H21m23-6 5 5-5 4Z"
+          fill="#b7d3c7"></path><path
+          d="M-18 0h2M10 0h6"
+          stroke="#534d38"
+          stroke-width="3"></path></g
+      ></symbol
+    >
+  </defs></svg
+>
+<div class="map painted-map world-map" data-map="all">
+  <svg
+    viewBox="0 0 400 390"
+    role="img"
+    aria-label="ハカタ湾から久留米、日田を経て由布院へ向かう鉄道の模式図"
+  >
+    <rect width="400" height="390" fill="url(#map-water)"></rect>
+    <path
+      d="M0 105Q22 63 46 73L58 103 80 99 94 66 128 82 142 48 169 71 171 14 214 0H400V390H0Z"
+      fill="url(#map-earth)"
+      stroke="#a7bca0"
+      stroke-width="2"></path>
+    <g fill="none" stroke="#f5f4d8" opacity=".55"
+      ><path
+        d="M8 39q24-6 44 0m-42 9q18-4 30 0M25 128q15 5 30 0M102 25q15-5 30 0"
+      ></path><path d="M19 53q10-3 20 0"></path></g
+    >
+    <path
+      d="M375 205Q282 234 237 278T92 291L7 307"
+      fill="none"
+      stroke="#a9cacc"
+      stroke-width="9"></path><path
+      d="M375 205Q282 234 237 278T92 291L7 307"
+      fill="none"
+      stroke="#d9e7d5"
+      stroke-width="3"></path>
+    <g
+      >{
+        forests
+          .filter((t) => t.x > 125)
+          .map((t) => (
+            <use
+              href="#map-tree"
+              x={t.x}
+              y={t.y - 70}
+              width={20 * t.s}
+              height={32 * t.s}
+            />
+          ))
+      }</g
+    >
+    <use href="#map-mountain" x="166" y="90" width="91" height="73"></use><use
+      href="#map-mountain"
+      x="270"
+      y="83"
+      width="110"
+      height="90"></use><use
+      href="#map-mountain"
+      x="226"
+      y="300"
+      width="95"
+      height="76"></use>
+    <g class="paint-label"
+      ><text x="18" y="68">博多湾</text><text x="159" y="349">筑後川</text><text
+        x="298"
+        y="93">由布岳</text
+      ><text x="182" y="188">九州</text></g
+    >
+    <path d={route} fill="none" stroke="#f8f0ce" stroke-width="12"></path><path
+      d={route}
+      fill="none"
+      stroke="#877958"
+      stroke-width="5"
+      stroke-dasharray="2 5"></path><path
+      d={route}
+      fill="none"
+      stroke="#ddd4ad"
+      stroke-width="2"></path>
+    <g class="route-waypoint"
+      ><circle cx="91" cy="258" r="4"></circle><text x="36" y="278">구루메</text
+      ><circle cx="202" cy="283" r="4"></circle><text x="183" y="310">히타</text
+      ></g
+    >
+    <use href="#map-station" x="53" y="77" width="65" height="55"></use><use
+      href="#map-station"
+      x="298"
+      y="158"
+      width="57"
+      height="48"></use>
+    <g class="moving-train train-outbound" visibility="hidden"
+      ><use href="#forest-train" x="-29" y="-8" width="60" height="17"
+      ></use><set
+        attributeName="visibility"
+        to="visible"
+        begin="outbound-motion.begin+0.05s"
+        fill="freeze"></set><animateMotion
+        id="outbound-motion"
+        dur="9.5s"
+        repeatCount="indefinite"
+        path={route}
+        rotate="auto"
+        keyPoints="0;0;1;1"
+        keyTimes="0;.08;.92;1"
+        calcMode="linear"></animateMotion></g
+    >
+    <g class="moving-train train-return" visibility="hidden"
+      ><g transform="rotate(180)"
+        ><use href="#forest-train" x="-29" y="-8" width="60" height="17"
+        ></use></g
+      ><set
+        attributeName="visibility"
+        to="visible"
+        begin="return-motion.begin+0.05s"
+        fill="freeze"></set><animateMotion
+        id="return-motion"
+        dur="9.5s"
+        repeatCount="indefinite"
+        path={route}
+        rotate="auto"
+        keyPoints="1;1;0;0"
+        keyTimes="0;.08;.92;1"
+        calcMode="linear"></animateMotion></g
+    >
+    <g class="stationary-train" transform="translate(133 294) rotate(18)"
+      ><use href="#forest-train" x="-29" y="-8" width="60" height="17"></use></g
+    >
+    <rect
+      width="400"
+      height="390"
+      fill="url(#paper-grain)"
+      pointer-events="none"></rect>
+  </svg>
+  <button class="painted-place world-hakata" data-region="fukuoka"
+    ><span>하카타</span><small>후쿠오카 지도 →</small></button
+  >
+  <button class="painted-place world-yufuin" data-region="yufuin"
+    ><span>유후인</span><small>유후인 지도 →</small></button
+  >
+  <button class="train-motion" type="button" hidden aria-pressed="false"
+    >기차 움직이기</button
+  >
+  <button class="painted-route" data-detail="train-outbound"
+    >하카타 → 유후인 <span>열차 · 좌석</span></button
+  >
+</div>
+<div class="map painted-map local-map" data-map="fukuoka" hidden>
+  <svg viewBox="0 0 400 420" aria-hidden="true"
+    ><rect width="400" height="420" fill="url(#map-water)"></rect><path
+      d="M0 195 50 168 126 155 166 187 207 163 266 159 318 116 363 136 400 95V420H0Z"
+      fill="url(#map-earth)"></path><path
+      d="M79 0Q105 40 151 43L242 38Q310 32 355 68L400 95V145L350 115Q306 75 254 70L168 72Q95 76 64 19Z"
+      fill="#d5dfb5"
+      stroke="#a5bba0"></path><path
+      d="M186 202Q170 252 181 270T164 420"
+      stroke="#9fc7c6"
+      stroke-width="10"
+      fill="none"></path><g stroke="#f5eed7" stroke-width="8" fill="none"
+      ><path
+        d="M70 246 270 296 300 394M116 199 84 365M48 304 357 357M188 178 246 366"
+      ></path></g
+    >
+    <g fill="#c4c8a9" stroke="#b5ba9d"
+      >{
+        Array.from({ length: 18 }, (_, i) => (
+          <rect
+            x={30 + ((i * 47) % 300)}
+            y={206 + ((i * 29) % 166)}
+            width="15"
+            height="9"
+            rx="2"
+          />
+        ))
+      }</g
+    ><g
+      >{
+        [10, 35, 61, 338, 365].map((x, i) => (
+          <use href="#map-tree" x={x} y={326 - i * 15} width="20" height="32" />
+        ))
+      }</g
+    ><text class="paint-label" x="67" y="137">博多湾</text><text
+      class="paint-label"
+      x="27"
+      y="216">天神</text
+    ><rect width="400" height="420" fill="url(#paper-grain)"></rect></svg
+  >
+  {
+    [
+      { id: "aquarium", name: "마린월드", icon: "aquarium", x: 46, y: 12 },
+      { id: "museum", name: "호빵맨 뮤지엄", icon: "museum", x: 39, y: 48 },
+      { id: "hotel", name: "컴포트 호텔", icon: "hotel", x: 28, y: 69 },
+      { id: "hakata", name: "하카타역", icon: "station", x: 57, y: 71 },
+      { id: "airport", name: "후쿠오카 공항", icon: "plane", x: 84, y: 60 },
+      { id: "dazaifu", name: "다자이후", icon: "shrine", x: 78, y: 90 },
+    ].map((p) => (
+      <button
+        class="illustrated-pin city-pin"
+        data-place={p.id}
+        style={`left:${p.x}%;top:${p.y}%`}
+      >
+        <>
+          <svg viewBox="0 0 80 74" aria-hidden="true">
+            <use href={`#map-${p.icon}`} width="80" height="74" />
+          </svg>
+          <span>{p.name}</span>
+        </>
+      </button>
+    ))
+  }
+</div>
+<div class="map painted-map local-map" data-map="yufuin" hidden>
+  <svg viewBox="0 0 400 420" aria-hidden="true"
+    ><rect width="400" height="420" fill="url(#map-earth)"></rect><path
+      d="M0 0H400V120Q309 152 209 111T0 142Z"
+      fill="#dce7d4"></path><use
+      href="#map-mountain"
+      x="210"
+      y="10"
+      width="170"
+      height="135"></use><use
+      href="#map-mountain"
+      x="80"
+      y="40"
+      width="120"
+      height="96"></use><text class="paint-label" x="295" y="30">由布岳</text
+    ><path
+      d="M300 131Q203 162 216 239T280 420"
+      fill="none"
+      stroke="#9dbeb9"
+      stroke-width="13"></path><path
+      d="M300 131Q203 162 216 239T280 420"
+      fill="none"
+      stroke="#c8dcd1"
+      stroke-width="5"></path><g stroke="#eeead0" stroke-width="11" fill="none"
+      ><path d="M53 258 135 210 302 172M135 210 174 329 275 345"></path></g
+    ><path
+      d="M0 300 90 267 138 239"
+      fill="none"
+      stroke="#887d62"
+      stroke-width="4"
+      stroke-dasharray="3 4"></path>
+    <g
+      >{
+        forests
+          .filter((t) => t.x < 110 || t.x > 300)
+          .map((t) => (
+            <use
+              href="#map-tree"
+              x={t.x}
+              y={t.y - 35}
+              width={22 * t.s}
+              height={36 * t.s}
+            />
+          ))
+      }</g
+    ><g fill="#bcc99d"
+      >{
+        [0, 1, 2, 3].map((i) => (
+          <path d={`M${25 + i * 43} 350l33-8 13 40-35 9Z`} />
+        ))
+      }</g
+    ><text class="paint-label" x="250" y="245">大分川</text><text
+      class="paint-label"
+      x="191"
+      y="183">湯の坪街道</text
+    ><ellipse cx="324" cy="164" rx="20" ry="12" fill="#9cbbb1"></ellipse><text
+      class="paint-label"
+      x="300"
+      y="196">金鱗湖</text
+    ><rect width="400" height="420" fill="url(#paper-grain)"></rect></svg
+  >
+  <button
+    class="illustrated-pin city-pin"
+    data-place="yufuin"
+    style="left:28%;top:58%"
+    ><svg viewBox="0 0 80 74" aria-hidden="true"
+      ><use href="#map-station" width="80" height="74"></use></svg
+    ><span>유후인역</span></button
+  >
+  <button
+    class="illustrated-pin city-pin"
+    data-place="house"
+    style="left:62%;top:80%"
+    ><svg viewBox="0 0 80 74" aria-hidden="true"
+      ><use href="#map-house" width="80" height="74"></use></svg
+    ><span>가와모토 별저 926</span></button
+  >
+</div>
