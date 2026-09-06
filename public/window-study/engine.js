@@ -47,6 +47,9 @@ const composer=new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene,camera));
 const ao=new SSAOPass(scene,camera,container.clientWidth,container.clientHeight,16);
 ao.kernelRadius=.16;ao.minDistance=.0012;ao.maxDistance=.045;ao.enabled=!isSmall();
+// SSAO replaces materials, so exclude the shadow-only ceiling from its normal pass.
+const renderAO=ao.render.bind(ao);
+ao.render=(...args)=>{world.ceiling.visible=false;try{return renderAO(...args);}finally{world.ceiling.visible=true;}};
 composer.addPass(ao);composer.addPass(new OutputPass());
 const views={
   room:{pos:[2.52,2.34,3.45],target:[-.05,1.29,-.61],fov:43,min:3.4,max:6.8},

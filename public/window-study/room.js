@@ -15,10 +15,11 @@ export function buildRoom(scene){
   const shadowTexture=contactMap();
   function contact(x,z,w,d,opacity=.6,y=.013,parent=room){const o=mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({map:shadowTexture,transparent:true,opacity,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}),[x,y,z],parent);o.rotation.x=-Math.PI/2;o.castShadow=false;return o;}
   // The reference corner, in metres; the open front keeps orbiting inside a credible room.
-  box(30,.13,30,[0,-.077,0],M.floor,0);
+  const floorBack=-1.57,floorFront=15,floorDepth=floorFront-floorBack,floorCenter=(floorBack+floorFront)/2;
+  box(30,.13,floorDepth,[0,-.077,floorCenter],M.floor,0);
   const groutGeometries=[];
-  for(let x=-15;x<=15;x+=.68){const g=new THREE.BoxGeometry(.002,.0015,30);g.translate(x,.0008,0);groutGeometries.push(g);}
-  for(let z=-15;z<=15;z+=.68){const g=new THREE.BoxGeometry(30,.0015,.002);g.translate(0,.0008,z);groutGeometries.push(g);}
+  for(let x=-15;x<=15;x+=.68){const g=new THREE.BoxGeometry(.002,.0015,floorDepth);g.translate(x,.0008,floorCenter);groutGeometries.push(g);}
+  for(let z=-15;z<=15;z+=.68){if(z<floorBack)continue;const g=new THREE.BoxGeometry(30,.0015,.002);g.translate(0,.0008,z);groutGeometries.push(g);}
   mesh(mergeGeometries(groutGeometries),M.grout);
   box(.14,4.6,24,[-2.06,2.3,9.8],M.wall,0);
   box(1.1,4.6,.18,[-1.44,2.3,-1.57],M.wall,0);
@@ -28,6 +29,9 @@ export function buildRoom(scene){
   box(.032,.085,24,[-1.974,.043,9.8],M.wallWhite,.002);
   box(4.3,.085,.035,[.12,.043,-1.452],M.wallWhite,.002);
   contact(-1.66,-.36,.65,3.9,.38);
+  // Block overhead sunlight without drawing a ceiling or adding a navigation occluder.
+  const ceiling=box(20.35,.14,23.46,[8.045,4.67,10.07],new THREE.MeshBasicMaterial({colorWrite:false,depthWrite:false}),0,scene);
+  ceiling.name='Shadow-only ceiling';ceiling.receiveShadow=false;ceiling.raycast=()=>{};
   // Deep painted sill and layered uPVC frame.
   box(3.2,.075,.43,[.70,1.145,-1.345],M.white,.012);
   box(3.18,.045,.04,[.70,1.102,-1.134],M.wallWhite,.004);
@@ -240,5 +244,5 @@ export function buildRoom(scene){
     texture.colorSpace=THREE.SRGBColorSpace;travelMap.material.map=texture;travelMap.material.needsUpdate=true;
   });
   portraitHit.userData.href='/spaces/juha/index.html';
-  return {room,M,curtains,plant,landscapeReady,portraitReady,mapReady,portraitHit,travelMap,lampLight,lampGlow,bulbMaterial,backdrop};
+  return {room,M,ceiling,curtains,plant,landscapeReady,portraitReady,mapReady,portraitHit,travelMap,lampLight,lampGlow,bulbMaterial,backdrop};
 }
