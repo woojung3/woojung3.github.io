@@ -16,9 +16,10 @@ export const places = {
   },
   dazaifu: { name: "다자이후 텐만구", query: "太宰府天満宮" },
   aquarium: { name: "마린월드 수족관", query: "マリンワールド海の中道" },
-  museum: {
-    name: "호빵맨 어린이 뮤지엄",
-    query: "福岡アンパンマンこどもミュージアム",
+  izakaya: { name: "하카타역 근처 이자카야", query: "博多駅 居酒屋" },
+  park: {
+    name: "우미노나카미치 해변공원",
+    query: "海の中道海浜公園",
   },
   airport: {
     name: "후쿠오카 공항",
@@ -59,6 +60,18 @@ export interface Day {
   stops: Stop[];
   caution?: string;
 }
+const izakayaPhoto: NonNullable<Stop["photo"]> = {
+  src: "/spaces/kyushu/photos/izakaya.webp",
+  alt: "따뜻한 나무 테이블 위 노릇한 닭꼬치와 닭날개 구이, 맥주잔",
+  caption: "하카타 이자카야",
+  author: "Nesnad",
+  source: "https://commons.wikimedia.org/wiki/File:Yakitoriplate2011jan.jpg",
+  license: "https://creativecommons.org/licenses/by/3.0/",
+  licenseName: "CC BY 3.0",
+  width: 1000,
+  height: 667,
+};
+
 export const days: Day[] = [
   {
     date: "2026-09-22",
@@ -68,7 +81,7 @@ export const days: Day[] = [
     title: "유후인 · 온천",
     intro: "하카타역 집합 · 유후인 산책 · 숙소 온천",
     stay: "house",
-    route: ["hakata", "yufuin", "house"],
+    route: ["hakata", "hotel", "hakata", "yufuin", "house"],
     stops: [
       {
         id: "meet",
@@ -83,9 +96,24 @@ export const days: Day[] = [
         },
         time: "07:00",
         title: "하카타역에서 일행 합류",
-        detail: "일행과 만나 커피와 아침 식사.",
+        detail: "하카타역에서 일행과 합류합니다.",
         place: "hakata",
         note: "집합 위치는 출발 전 공유.",
+      },
+      {
+        id: "luggage",
+        time: "09:00",
+        title: "호텔에 큰 짐 보관",
+        detail: "컴포트 호텔 하카타에 큰 짐과 필요 없는 짐 보관 요청.",
+        place: "hotel",
+        note: "체크인 전날 짐 보관 가능 여부는 호텔에 확인.",
+      },
+      {
+        id: "breakfast",
+        time: "09:20–10:00",
+        title: "모닝 커피 · 아침 식사",
+        detail: "하카타역으로 이동해 커피와 아침 식사.",
+        place: "hakata",
       },
       {
         id: "outbound",
@@ -146,7 +174,7 @@ export const days: Day[] = [
         id: "dinner",
         time: "저녁",
         title: "장보기 · 저녁 · 온천",
-        detail: "장보기 후 숙소에서 저녁 식사 · 온천욕.",
+        detail: "맥스바류에서 장보기 후 숙소에서 저녁 식사 · 온천욕.",
         note: "식재료와 다음 날 아침거리 준비.",
       },
     ],
@@ -159,7 +187,7 @@ export const days: Day[] = [
     title: "하카타 · 다자이후",
     intro: "유후인 체크아웃 · 하카타 이동 · 다자이후 산책",
     stay: "hotel",
-    route: ["yufuin", "hakata", "hotel", "dazaifu"],
+    route: ["house", "yufuin", "hakata", "hotel", "dazaifu", "hotel"],
     caution:
       "다자이후 신사와 상점은 마감 시간이 다릅니다. 늦은 오후 방문 전 영업시간 확인.",
     stops: [
@@ -208,10 +236,10 @@ export const days: Day[] = [
         place: "hotel",
       },
       {
-        id: "snack",
-        time: "14:50–15:30",
-        title: "간식 후 다자이후로",
-        detail: "하카타역에서 간식이나 디저트를 먹고 출발합니다.",
+        id: "to-dazaifu",
+        time: "14:50 이후",
+        title: "다자이후로 바로 출발",
+        detail: "하카타역에서 다자이후로 바로 이동합니다.",
         place: "hakata",
         note: "출발 전 지도에서 이동 경로 확인.",
       },
@@ -226,9 +254,10 @@ export const days: Day[] = [
             "https://commons.wikimedia.org/wiki/File:20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
           license: "https://creativecommons.org/licenses/by-sa/4.0/",
         },
-        time: "16:00–18:00",
+        time: "15:30–18:00",
         title: "다자이후 산책",
-        detail: "텐만구와 상가거리를 둘러보고 우메가에 모찌를 맛봅니다.",
+        detail:
+          "상가거리와 텐만구를 둘러보고 우메가에 모찌를 맛봅니다. 상점별 마감 시간이 달라 상가거리를 먼저 둘러보는 것을 권장합니다.",
         place: "dazaifu",
       },
       {
@@ -237,6 +266,15 @@ export const days: Day[] = [
         title: "저녁 식사",
         detail: "다자이후 근처 또는 하카타로 돌아오는 길에 식사합니다.",
       },
+      {
+        id: "izakaya-night-3",
+        time: "저녁 식사 후 · 선택",
+        title: "엄마 둘, 하카타 이자카야",
+        detail:
+          "엄마 둘이 맛있는 안주와 함께 술 한잔. 하카타로 돌아온 뒤 컨디션이 괜찮으면 다녀옵니다.",
+        place: "izakaya",
+        photo: izakayaPhoto,
+      },
     ],
   },
   {
@@ -244,12 +282,11 @@ export const days: Day[] = [
     label: "9.24",
     weekday: "목",
     number: 4,
-    title: "마린월드 · 호빵맨 뮤지엄",
-    intro: "오전 수족관 · 오후 호빵맨 뮤지엄",
+    title: "마린월드 · 해변공원",
+    intro: "오전 수족관 · 오후 해변공원과 동물의 숲",
     stay: "hotel",
-    route: ["hotel", "aquarium", "museum", "hotel"],
-    caution:
-      "수족관 쇼 시간과 뮤지엄 입장 마감 확인. 두 장소 사이 이동시간을 고려해 출발.",
+    route: ["hotel", "aquarium", "park", "hotel"],
+    caution: "돌고래 쇼 시간과 공원·동물의 숲 운영시간을 방문 전에 확인.",
     stops: [
       {
         id: "sea",
@@ -262,31 +299,40 @@ export const days: Day[] = [
           caption: "마린월드 우미노나카미치",
           alt: "맑은 하늘 아래 마린월드 수족관 외관",
         },
-        time: "오전",
-        title: "마린월드 수족관",
+        time: "09:30–12:00",
+        title: "마린월드 이동 · 관람",
         detail: "지하철·JR로 이동해 돌고래 쇼와 바다동물을 관람합니다.",
         place: "aquarium",
         note: "돌고래 쇼 시간에 맞춰 관람.",
       },
       {
         id: "food",
-        time: "점심",
+        time: "12:00–13:00",
         title: "수족관 근처에서 식사",
-        detail: "수족관 내부 또는 인근 식당에서 점심을 먹습니다.",
+        detail: "수족관 내부 또는 공원 입구 식당에서 점심을 먹습니다.",
       },
       {
         id: "kids",
-        time: "오후",
-        title: "호빵맨 어린이 뮤지엄",
-        detail: "아이들 체험과 캐릭터 쇼 관람.",
-        place: "museum",
-        note: "방문 전 입장권과 입장 마감 확인.",
+        time: "13:00–16:00",
+        title: "해변공원 · 동물의 숲",
+        detail:
+          "바로 옆 우미노나카미치 해변공원에서 캥거루·카피바라 동물 체험, 대형 놀이터와 잔디밭 산책.",
+        place: "park",
+        note: "어린이 무료입장 적용 연령과 별도 시설 요금은 방문 전 확인.",
       },
       {
         id: "last",
-        time: "저녁",
-        title: "저녁 식사",
-        detail: "하카타 또는 텐진에서 저녁 식사.",
+        time: "16:30 이후",
+        title: "하카타·텐진 복귀 · 마지막 만찬",
+        detail: "하카타 또는 텐진으로 돌아와 여행 마지막 밤 대가족 저녁 식사.",
+      },
+      {
+        id: "izakaya-night-4",
+        time: "저녁 식사 후 · 선택",
+        title: "엄마 둘, 하카타 이자카야",
+        detail: "마지막 가족 만찬 뒤, 여유가 있으면 둘만의 시간을 즐깁니다.",
+        place: "izakaya",
+        photo: izakayaPhoto,
       },
     ],
   },

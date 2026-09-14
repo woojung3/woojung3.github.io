@@ -92,7 +92,7 @@ export const train = {
 };
 export const nodes = [
   { id: "aquarium", label: "마린월드", x: 93, y: 40, region: "fukuoka" },
-  { id: "museum", label: "호빵맨 뮤지엄", x: 73, y: 120, region: "fukuoka" },
+  { id: "park", label: "해변공원", x: 175, y: 40, region: "fukuoka" },
   { id: "hotel", label: "컴포트 호텔", x: 72, y: 205, region: "fukuoka" },
   { id: "hakata", label: "하카타역", x: 165, y: 240, region: "fukuoka" },
   { id: "airport", label: "후쿠오카 공항", x: 282, y: 208, region: "fukuoka" },

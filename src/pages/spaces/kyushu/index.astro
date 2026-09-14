@@ -497,7 +497,7 @@ import "../../../features/trip/trip.css";
       ))
     }
     <script>
-      import { places } from "../../../features/trip/data";
+      import { days, places } from "../../../features/trip/data";
       const panel = document.querySelector<HTMLElement>("#selection")!;
       const body = document.querySelector<HTMLElement>("#selection-body")!;
       let trigger: HTMLElement | null = null;
@@ -716,12 +716,7 @@ import "../../../features/trip/trip.css";
         document
           .querySelector(".atlas")
           ?.setAttribute("data-active-day", String(index));
-        const active = [
-          ["hakata", "yufuin", "house"],
-          ["house", "yufuin", "hakata", "hotel", "dazaifu", "hotel"],
-          ["hotel", "aquarium", "museum", "hotel"],
-          ["hotel", "airport"],
-        ][index];
+        const active = days[index].route;
         document.querySelectorAll<HTMLElement>(".city-pin").forEach((pin) => {
           const positions = active.flatMap((id, i) =>
             id === pin.dataset.place ? [i + 1] : [],
