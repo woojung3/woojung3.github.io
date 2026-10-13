@@ -3,9 +3,13 @@ import "../styles/site.css";
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
-const { title, description = "보안 프로그래밍 & 가정의 행복 & 주님의 은혜" } =
-  Astro.props;
+const {
+  title,
+  description = "보안 프로그래밍 & 가정의 행복 & 주님의 은혜",
+  noindex = false,
+} = Astro.props;
 const nav = [
   ["/", "Home"],
   ["/blog/", "Blog"],
@@ -24,6 +28,7 @@ const nav = [
       {title === "Home" ? "Jinwoo's Blog" : `${title} — Jinwoo's Blog`}
     </title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.png" />
     <link
@@ -65,12 +70,7 @@ const nav = [
     </header>
     <main id="main"><slot /></main>
     <footer class="site-footer">
-      <span>© Jinwoo Lee</span>
-      <div class="footer-links">
-        <a href="/personal-assistant/">Personal Assistant</a>
-        <a href="/personal-assistant-privacy/">App privacy</a>
-        <a href="/feed.xml">RSS ↗</a>
-      </div>
+      <span>© Jinwoo Lee</span><a href="/feed.xml">RSS ↗</a>
     </footer>
   </body>
 </html>

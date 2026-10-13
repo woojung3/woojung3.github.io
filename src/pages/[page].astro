@@ -11,4 +11,6 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<Site title={entry.data.title}><div class="prose"><Content /></div></Site>
+<Site title={entry.data.title} noindex={entry.data.noindex}>
+  <div class="prose"><Content /></div>
+</Site>

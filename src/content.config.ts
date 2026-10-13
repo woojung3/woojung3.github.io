@@ -12,6 +12,9 @@ export const collections = {
   }),
   pages: defineCollection({
     loader: glob({ pattern: "*.md", base: "./src/content/pages" }),
-    schema: z.object({ title: z.string() }),
+    schema: z.object({
+      title: z.string(),
+      noindex: z.boolean().default(false),
+    }),
   }),
 };

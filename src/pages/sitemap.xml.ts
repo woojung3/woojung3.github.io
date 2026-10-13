@@ -8,8 +8,6 @@ export const GET: APIRoute = async ({ site }) => {
     "/papers/",
     "/work/",
     "/about/",
-    "/personal-assistant/",
-    "/personal-assistant-privacy/",
     ...all.map((p) => postUrl(p.id)),
     ...Array.from(
       { length: Math.max(0, Math.ceil(all.length / 10) - 1) },

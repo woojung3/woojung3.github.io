@@ -32,10 +32,11 @@ try {
       );
     }
     await page.goto(base + "/");
-    await page
-      .getByRole("link", { name: "Personal Assistant", exact: true })
-      .click();
-    assert.equal(new URL(page.url()).pathname, "/personal-assistant/");
+    assert.equal(
+      await page.locator('a[href^="/personal-assistant"]').count(),
+      0,
+    );
+    await page.goto(base + "/personal-assistant/");
     await page
       .getByRole("link", { name: "개인정보처리방침", exact: true })
       .click();

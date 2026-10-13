@@ -1,5 +1,6 @@
 ---
 title: Jinwoo Personal Assistant 개인정보처리방침
+noindex: true
 ---
 # 개인정보처리방침
 

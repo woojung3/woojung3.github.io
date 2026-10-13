@@ -1,5 +1,6 @@
 ---
 title: Jinwoo Personal Assistant
+noindex: true
 ---
 # Jinwoo Personal Assistant
 

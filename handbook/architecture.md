@@ -6,7 +6,7 @@ Astro generates directory routes for Home, Blog, Papers, Work and About. `src/co
 
 Blog pages contain ten entries. Page one is `/blog/`; later pages are `/blog/page/<number>/`. Article IDs come from Markdown filenames. Dates are editorial metadata, not inferred from IDs. Reading pages need no client-side application runtime.
 
-The app introduction (`/personal-assistant/`) and privacy policy (`/personal-assistant-privacy/`) use Markdown in `src/content/pages/` and the existing page route. They are public, linked from the footer and included in the sitemap.
+The app introduction (`/personal-assistant/`) and privacy policy (`/personal-assistant-privacy/`) use Markdown in `src/content/pages/` and the existing page route. They remain accessible by direct URL for OAuth branding, but have no links from the main site navigation or footer, are excluded from the sitemap and declare `noindex` through page frontmatter. The two pages link to each other. This is discoverability control, not access control.
 
 `Site.astro` owns global navigation, metadata and footer. `Standalone.astro` provides a separate noindex shell without site CSS for independent apps. The sitemap is an explicit public route list; add public routes there deliberately.
 

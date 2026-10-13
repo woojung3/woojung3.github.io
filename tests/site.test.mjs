@@ -31,16 +31,23 @@ test("reading pages do not load client scripts", () => {
     assert.doesNotMatch(read(path), /<script/);
   }
 });
-test("app introduction and privacy policy are public and linked", () => {
+test("app pages remain directly accessible but are unlisted and noindex", () => {
   for (const path of ["personal-assistant", "personal-assistant-privacy"]) {
     const url = `https://woojung3.github.io/${path}/`;
-    assert.match(read("index.html"), new RegExp(`href="/${path}/"`));
-    assert.ok(read("sitemap.xml").includes(`<loc>${url}</loc>`));
+    for (const page of ["index.html", "about/index.html", "blog/index.html"]) {
+      assert.doesNotMatch(read(page), new RegExp(`href="/${path}/"`));
+      assert.doesNotMatch(read(page), /name="robots" content="noindex"/);
+    }
+    assert.ok(!read("sitemap.xml").includes(`<loc>${url}</loc>`));
     assert.ok(
       read(`${path}/index.html`).includes(`rel="canonical" href="${url}"`),
     );
-    assert.doesNotMatch(read(`${path}/index.html`), /noindex/);
+    assert.match(read(`${path}/index.html`), /name="robots" content="noindex"/);
   }
+  assert.match(
+    read("personal-assistant/index.html"),
+    /href="\/personal-assistant-privacy\/"/,
+  );
   const privacy = read("personal-assistant-privacy/index.html");
   assert.match(privacy, /Google API/);
   assert.match(privacy, /mailto:sostlsz@gmail\.com/);
