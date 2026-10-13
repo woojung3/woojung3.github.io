@@ -25,9 +25,26 @@ test("reading pages do not load client scripts", () => {
     "papers/index.html",
     "work/index.html",
     "blog/20251109/index.html",
+    "personal-assistant/index.html",
+    "personal-assistant-privacy/index.html",
   ]) {
     assert.doesNotMatch(read(path), /<script/);
   }
+});
+test("app introduction and privacy policy are public and linked", () => {
+  for (const path of ["personal-assistant", "personal-assistant-privacy"]) {
+    const url = `https://woojung3.github.io/${path}/`;
+    assert.match(read("index.html"), new RegExp(`href="/${path}/"`));
+    assert.ok(read("sitemap.xml").includes(`<loc>${url}</loc>`));
+    assert.ok(
+      read(`${path}/index.html`).includes(`rel="canonical" href="${url}"`),
+    );
+    assert.doesNotMatch(read(`${path}/index.html`), /noindex/);
+  }
+  const privacy = read("personal-assistant-privacy/index.html");
+  assert.match(privacy, /Google API/);
+  assert.match(privacy, /mailto:sostlsz@gmail\.com/);
+  assert.match(privacy, /https:\/\/myaccount\.google\.com\/connections/);
 });
 test("RSS and sitemap include only public content", () => {
   assert.equal(
@@ -43,6 +60,8 @@ test("local root assets and links in public pages resolve", () => {
     "about/index.html",
     "papers/index.html",
     "work/index.html",
+    "personal-assistant/index.html",
+    "personal-assistant-privacy/index.html",
     ...published.map((f) => `blog/${f.replace(".md", "")}/index.html`),
   ];
   const missing = [];

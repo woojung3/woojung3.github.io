@@ -19,6 +19,8 @@ try {
       "/work/",
       "/papers/",
       "/about/",
+      "/personal-assistant/",
+      "/personal-assistant-privacy/",
     ]) {
       const response = await page.goto(base + path);
       assert.equal(response.status(), 200, path);
@@ -29,6 +31,15 @@ try {
         `${width} ${path}: overflow`,
       );
     }
+    await page.goto(base + "/");
+    await page
+      .getByRole("link", { name: "Personal Assistant", exact: true })
+      .click();
+    assert.equal(new URL(page.url()).pathname, "/personal-assistant/");
+    await page
+      .getByRole("link", { name: "개인정보처리방침", exact: true })
+      .click();
+    assert.equal(new URL(page.url()).pathname, "/personal-assistant-privacy/");
     await page.goto(base + "/work/");
     const summary = page
       .locator("summary")
